@@ -428,7 +428,7 @@ export class VisualSearch extends BaseActivity {
                 this.bot.logger.info(
                     this.bot.isMobile,
                     'VISUAL-SEARCH',
-                    `Daily visual search done | pointsGained=${gained} | currentBalance=${res.balance} | query="${visual.query}"`,
+                    `Daily visual search done | pointsGained=${gained} | 当前积分=${res.balance} | query="${visual.query}"`,
                     'green'
                 )
                 return gained

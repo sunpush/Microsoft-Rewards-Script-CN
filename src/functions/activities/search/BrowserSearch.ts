@@ -29,7 +29,7 @@ export class Search extends BaseActivity {
 
     public async doSearch(page: Page, isMobile: boolean): Promise<number> {
         const startBalance = Number(this.bot.userData.currentPoints ?? 0)
-        this.bot.logger.info(isMobile, 'SEARCH-BING', `Starting Bing searches | currentBalance=${startBalance}`)
+        this.bot.logger.info(isMobile, 'SEARCH-BING', `Starting Bing searches | 当前积分=${startBalance}`)
 
         const tracker = new PointsTracker(this.bot, isMobile)
         try {
@@ -46,7 +46,7 @@ export class Search extends BaseActivity {
             this.bot.logger.info(
                 isMobile,
                 tracker.context,
-                `Completed Bing searches | pointsGained=${stats.totalGained} | currentBalance=${this.bot.userData.currentPoints} | previousBalance=${startBalance} | searches=${stats.performed} | ${tracker.progress()}`
+                `Completed Bing searches | pointsGained=${stats.totalGained} | 当前积分=${this.bot.userData.currentPoints} | previousBalance=${startBalance} | searches=${stats.performed} | ${tracker.progress()}`
             )
             return stats.totalGained
         } finally {
@@ -76,7 +76,7 @@ export class Search extends BaseActivity {
         this.bot.logger.info(
             isMobile,
             tracker.context,
-            `Bonus farming ${done ? 'complete' : 'stopped'} (${reason}) | pointsGained=${stats.totalGained} | currentBalance=${this.bot.userData.currentPoints} | ${tracker.progress()} | searches=${stats.performed}`,
+            `Bonus farming ${done ? 'complete' : 'stopped'} (${reason}) | pointsGained=${stats.totalGained} | 当前积分=${this.bot.userData.currentPoints} | ${tracker.progress()} | searches=${stats.performed}`,
             done || stats.totalGained > 0 ? 'green' : undefined
         )
         return stats.totalGained
@@ -125,7 +125,7 @@ export class Search extends BaseActivity {
                     this.bot.logger.info(
                         isMobile,
                         tracker.context,
-                        `pointsGained=${gained} | currentBalance=${this.bot.userData.currentPoints} | query="${query}" | ${tracker.progress()}`,
+                        `pointsGained=${gained} | 当前积分=${this.bot.userData.currentPoints} | query="${query}" | ${tracker.progress()}`,
                         'green'
                     )
                 } else {

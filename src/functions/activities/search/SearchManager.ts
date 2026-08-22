@@ -104,7 +104,7 @@ export class SearchManager {
         this.bot.logger.info(
             'main',
             'SEARCH-MANAGER',
-            `Bonus search summary | pointsGained=${gained} | currentBalance=${this.bot.userData.currentPoints}`
+            `Bonus search summary | pointsGained=${gained} | 当前积分=${this.bot.userData.currentPoints}`
         )
         return gained
     }

@@ -25,7 +25,7 @@ export class AppReward extends BaseActivity {
         this.bot.logger.info(
             this.bot.isMobile,
             'APP-REWARD',
-            `Starting AppReward | offerId=${offerId} | country=${this.bot.userData.geoLocale} | currentBalance=${this.oldBalance}`
+            `Starting AppReward | offerId=${offerId} | country=${this.bot.userData.geoLocale} | 当前积分=${this.oldBalance}`
         )
 
         try {
@@ -79,7 +79,7 @@ export class AppReward extends BaseActivity {
             this.bot.logger.debug(
                 this.bot.isMobile,
                 'APP-REWARD',
-                `Balance delta after AppReward | offerId=${offerId} | previousBalance=${this.oldBalance} | currentBalance=${newBalance} | pointsGained=${this.gainedPoints}`
+                `Balance delta after AppReward | offerId=${offerId} | previousBalance=${this.oldBalance} | 当前积分=${newBalance} | pointsGained=${this.gainedPoints}`
             )
 
             if (this.gainedPoints > 0) {
@@ -89,21 +89,21 @@ export class AppReward extends BaseActivity {
                 this.bot.logger.info(
                     this.bot.isMobile,
                     'APP-REWARD',
-                    `Completed AppReward | offerId=${offerId} | pointsGained=${this.gainedPoints} | currentBalance=${newBalance}`,
+                    `Completed AppReward | offerId=${offerId} | pointsGained=${this.gainedPoints} | 当前积分=${newBalance}`,
                     'green'
                 )
             } else {
                 this.bot.logger.warn(
                     this.bot.isMobile,
                     'APP-REWARD',
-                    `Completed AppReward with no points | offerId=${offerId} | pointsGained=0 | currentBalance=${newBalance}`
+                    `Completed AppReward with no points | offerId=${offerId} | pointsGained=0 | 当前积分=${newBalance}`
                 )
             }
 
             this.bot.logger.info(
                 this.bot.isMobile,
                 'APP-REWARD',
-                `Finished AppReward | offerId=${offerId} | currentBalance=${this.bot.userData.currentPoints}`
+                `Finished AppReward | offerId=${offerId} | 当前积分=${this.bot.userData.currentPoints}`
             )
         } catch (error) {
             this.bot.logger.error(

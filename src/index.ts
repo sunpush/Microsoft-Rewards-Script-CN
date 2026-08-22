@@ -269,7 +269,7 @@ export class MicrosoftRewardsBot {
         this.logger.info(
             'main',
             'RUN-START',
-            `Starting Microsoft Rewards Script | v${pkg.version} | Accounts: ${totalAccounts} | Clusters: ${this.config.clusters}`
+            `开始执行脚本 | v${pkg.version} | 账户: ${totalAccounts} | 集群: ${this.config.clusters}`
         )
 
         if (this.config.clusters > 1) {
@@ -429,7 +429,7 @@ export class MicrosoftRewardsBot {
                 this.logger.info(
                     'main',
                     'ACCOUNT-START',
-                    `Starting account: ${accountEmail} | geoLocale: ${account.geoLocale} | locale: ${this.accountLocale.locale}${
+                    `正在开始执行的账户: ${accountEmail} | geoLocale: ${account.geoLocale} | locale: ${this.accountLocale.locale}${
                         cachedRegion ? ` | cachedRegion: ${cachedRegion}` : ''
                     }`
                 )
@@ -627,7 +627,7 @@ export class MicrosoftRewardsBot {
                 const initialContext: BrowserContext = mobileSession.context
                 this.mainMobilePage = await initialContext.newPage()
 
-                this.logger.info('main', 'BROWSER', `Mobile Browser started | ${accountEmail}`)
+                this.logger.info('main', 'BROWSER', `移动浏览器已启动 | ${accountEmail}`)
 
                 await this.login.login(this.mainMobilePage, account)
 

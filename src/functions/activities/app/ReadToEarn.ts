@@ -22,7 +22,7 @@ export class ReadToEarn extends BaseActivity {
         this.bot.logger.info(
             this.bot.isMobile,
             'READ-TO-EARN',
-            `Starting Read to Earn | geo=${this.bot.userData.geoLocale} | delayRange=${delayMin}-${delayMax} | currentBalance=${startBalance}`
+            `Starting Read to Earn | geo=${this.bot.userData.geoLocale} | delayRange=${delayMin}-${delayMax} | 当前积分=${startBalance}`
         )
 
         try {
@@ -78,14 +78,14 @@ export class ReadToEarn extends BaseActivity {
                 this.bot.logger.debug(
                     this.bot.isMobile,
                     'READ-TO-EARN',
-                    `Balance delta after article | article=${i + 1}/${articleCount} | previousBalance=${oldBalance} | currentBalance=${newBalance} | pointsGained=${gainedPoints}`
+                    `Balance delta after article | article=${i + 1}/${articleCount} | previousBalance=${oldBalance} | 当前积分=${newBalance} | pointsGained=${gainedPoints}`
                 )
 
                 if (gainedPoints <= 0) {
                     this.bot.logger.info(
                         this.bot.isMobile,
                         'READ-TO-EARN',
-                        `No points gained, stopping Read to Earn | article=${i + 1}/${articleCount} | status=${response.status} | pointsGained=0 | currentBalance=${newBalance}`
+                        `No points gained, stopping Read to Earn | article=${i + 1}/${articleCount} | status=${response.status} | pointsGained=0 | 当前积分=${newBalance}`
                     )
                     break
                 }
@@ -99,7 +99,7 @@ export class ReadToEarn extends BaseActivity {
                 this.bot.logger.info(
                     this.bot.isMobile,
                     'READ-TO-EARN',
-                    `Read article ${i + 1}/${articleCount} | status=${response.status} | pointsGained=${gainedPoints} | currentBalance=${newBalance}`,
+                    `Read article ${i + 1}/${articleCount} | status=${response.status} | pointsGained=${gainedPoints} | 当前积分=${newBalance}`,
                     'green'
                 )
 
@@ -119,7 +119,7 @@ export class ReadToEarn extends BaseActivity {
             this.bot.logger.info(
                 this.bot.isMobile,
                 'READ-TO-EARN',
-                `Completed Read to Earn | articlesRead=${articlesRead} | pointsGained=${totalGained} | previousBalance=${startBalance} | currentBalance=${finalBalance}`
+                `Completed Read to Earn | articlesRead=${articlesRead} | pointsGained=${totalGained} | previousBalance=${startBalance} | 当前积分=${finalBalance}`
             )
         } catch (error) {
             this.bot.logger.error(

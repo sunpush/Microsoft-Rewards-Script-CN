@@ -19,7 +19,7 @@ export class SearchOnBing extends BaseActivity {
         this.bot.logger.info(
             this.bot.isMobile,
             'SEARCH-ON-BING',
-            `Starting SearchOnBing | offerId=${offerId} | title="${promotion.title}" | currentBalance=${this.oldBalance}`
+            `Starting SearchOnBing | offerId=${offerId} | title="${promotion.title}" | 当前积分=${this.oldBalance}`
         )
 
         try {
@@ -40,14 +40,14 @@ export class SearchOnBing extends BaseActivity {
                 this.bot.logger.info(
                     this.bot.isMobile,
                     'SEARCH-ON-BING',
-                    `Completed SearchOnBing | offerId=${offerId} | pointsGained=${this.gainedPoints} | currentBalance=${this.bot.userData.currentPoints} | previousBalance=${this.oldBalance}`,
+                    `Completed SearchOnBing | offerId=${offerId} | pointsGained=${this.gainedPoints} | 当前积分=${this.bot.userData.currentPoints} | previousBalance=${this.oldBalance}`,
                     'green'
                 )
             } else {
                 this.bot.logger.warn(
                     this.bot.isMobile,
                     'SEARCH-ON-BING',
-                    `Failed SearchOnBing | offerId=${offerId} | pointsGained=${this.gainedPoints} | currentBalance=${this.bot.userData.currentPoints} | previousBalance=${this.oldBalance}`
+                    `Failed SearchOnBing | offerId=${offerId} | pointsGained=${this.gainedPoints} | 当前积分=${this.bot.userData.currentPoints} | previousBalance=${this.oldBalance}`
                 )
             }
         } catch (error) {
@@ -68,7 +68,7 @@ export class SearchOnBing extends BaseActivity {
         this.bot.logger.debug(
             this.bot.isMobile,
             'SEARCH-ON-BING-SEARCH',
-            `Starting search loop | queriesCount=${queries.length} | targetPoints=${promotion.pointProgressMax} | currentBalance=${this.oldBalance}`
+            `Starting search loop | queriesCount=${queries.length} | targetPoints=${promotion.pointProgressMax} | 当前积分=${this.oldBalance}`
         )
 
         await this.bot.browser.func.synchronizeActiveBrowserCookies('SEARCH-ON-BING-COOKIE-SEED', true)
@@ -106,7 +106,7 @@ export class SearchOnBing extends BaseActivity {
                 this.bot.logger.debug(
                     this.bot.isMobile,
                     'SEARCH-ON-BING-SEARCH',
-                    `Progress check | query="${query}" | offerProgress=${offerProgress} | offerComplete=${offerComplete} | currentBalance=${newBalance}`
+                    `Progress check | query="${query}" | offerProgress=${offerProgress} | offerComplete=${offerComplete} | 当前积分=${newBalance}`
                 )
 
                 if (offerComplete) {
@@ -114,7 +114,7 @@ export class SearchOnBing extends BaseActivity {
                     this.bot.logger.info(
                         this.bot.isMobile,
                         'SEARCH-ON-BING-SEARCH',
-                        `SearchOnBing activity completed | pointsGained=${this.gainedPoints} | currentBalance=${newBalance} | query="${query}" | offerProgress=${offerProgress}`,
+                        `SearchOnBing activity completed | pointsGained=${this.gainedPoints} | 当前积分=${newBalance} | query="${query}" | offerProgress=${offerProgress}`,
                         'green'
                     )
                     return
@@ -141,7 +141,7 @@ export class SearchOnBing extends BaseActivity {
         this.bot.logger.warn(
             this.bot.isMobile,
             'SEARCH-ON-BING-SEARCH',
-            `Finished all queries without completing the activity | queriesTried=${queries.length} | offerId=${offerId} | pointsGained=${this.gainedPoints} | currentBalance=${this.bot.userData.currentPoints} | previousBalance=${this.oldBalance}`
+            `Finished all queries without completing the activity | queriesTried=${queries.length} | offerId=${offerId} | pointsGained=${this.gainedPoints} | 当前积分=${this.bot.userData.currentPoints} | previousBalance=${this.oldBalance}`
         )
     }
 

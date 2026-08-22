@@ -102,7 +102,7 @@ export class BingSearchApi {
             this.bot.isMobile,
             'SEARCH-REPORT',
             `Reported "${query}" | ig=${ig} | pointsGained=${gained ?? 'n/a'}` +
-                ` | currentBalance=${parsed.balance ?? 'n/a'}` +
+                ` | 当前积分=${parsed.balance ?? 'n/a'}` +
                 ` | searchPts=${parsed.searchPointsEarned ?? 'n/a'}/${parsed.searchPointsLimit ?? 'n/a'}`
         )
 
