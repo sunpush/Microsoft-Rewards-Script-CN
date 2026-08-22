@@ -1,25 +1,32 @@
 services:
-    microsoft-rewards-script:
-        image: ghcr.io/thenetsky/microsoft-rewards-script:4
+    ms_rewards:
+        image: ms_rewards:4.3.0
         # To build locally instead of pulling the prebuilt image, use the build section below.
-        #build:
-        #    context: .
-        container_name: microsoft-rewards-script
+        build:
+            context: .
+        container_name: ms_rewards_app_${NO}
         restart: unless-stopped
         volumes:
-            - ./config:/usr/src/microsoft-rewards-script/config
-            - ./sessions:/usr/src/microsoft-rewards-script/sessions
+            - ./config_${NO}:/usr/src/microsoft-rewards-script/config
+            - ./sessions_${NO}:/usr/src/microsoft-rewards-script/sessions
+        deploy:
+            resources:
+                limits:
+                    cpus: '1'
+                    memory: 1024M
+                reservations:
+                    memory: 256M
         env_file:
             # Load account credentials from the .env file (ACCOUNT_1_EMAIL, optional ACCOUNT_1_PASSWORD, etc.)
             - path: .env
         environment:
             # ── Scheduler ──────────────────────────────────────
-            TZ: 'America/Toronto'
+            TZ: ${TZ}
             NODE_ENV: 'production'
             # CRON_SCHEDULE is the *initial* default. It will run as default unless changed by the API
             # API schedule changes are saved to ./config/schedule.json, delete
             # that file to revert to the base CRON_SCHEDULE again.
-            CRON_SCHEDULE: '0 7 * * *' # use crontab.guru to customize your schedule
+            CRON_SCHEDULE: ${CRON_SCHEDULE} # use crontab.guru to customize your schedule
             RUN_ON_START: 'true' # run script immediately on container start
             SKIP_RANDOM_SLEEP: 'false'
             #MIN_SLEEP_MINUTES: "5"
