@@ -187,27 +187,27 @@ if [ "${SKIP_RANDOM_SLEEP:-false}" != "true" ]; then
     else
         SLEEPTIME=$((MINWAIT_SEC + RANDOM % (MAXWAIT_SEC - MINWAIT_SEC + 1)))
     fi
-    echo "[$(date)] [run_daily.sh] Sleeping for $((SLEEPTIME/60)) minutes ($SLEEPTIME seconds)"
+    echo "[$(date)] [run_daily.sh] 休眠 $((SLEEPTIME/60)) minutes ($SLEEPTIME seconds)"
     sleep "$SLEEPTIME"
 else
     echo "[$(date)] [run_daily.sh] Skipping random sleep"
 fi
 
 # Start the actual script
-echo "[$(date)] [run_daily.sh] Starting script..."
+echo "[$(date)] [run_daily.sh] 开始执行脚本..."
 run_status=0
 if [ "${API_MODE:-false}" = "true" ]; then
     if node scripts/api/trigger.js; then
-        echo "[$(date)] [run_daily.sh] Script completed successfully (via API)."
+        echo "[$(date)] [run_daily.sh] 脚本执行完成 (via API)."
     else
-        echo "[$(date)] [run_daily.sh] ERROR: Script failed (via API)!" >&2
+        echo "[$(date)] [run_daily.sh] ERROR: 脚本执行失败 (via API)!" >&2
         run_status=1
     fi
 else
     if npm start; then
-        echo "[$(date)] [run_daily.sh] Script completed successfully."
+        echo "[$(date)] [run_daily.sh] 脚本执行完成."
     else
-        echo "[$(date)] [run_daily.sh] ERROR: Script failed!" >&2
+        echo "[$(date)] [run_daily.sh] ERROR: 脚本执行失败!" >&2
         run_status=1
     fi
 fi

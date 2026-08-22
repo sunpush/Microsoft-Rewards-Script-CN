@@ -46,6 +46,7 @@ services:
             #  ── Configuration ──────────────────────────────────────
             CONFIG_TELEGRAM_ENABLED: 'true'
             CONFIG_TELEGRAM_BOTTOKEN: '8938408745:AAH3XgvUUEy1KRsHQZj9EXafU1asYmpsL2s'
+            CONFIG_TELEGRAM_CHATID: '-1004439706560'
 
             # Uncomment to override defaults, a full list of configuration options are in the README.
             #CONFIG_CLUSTERS: '1'
