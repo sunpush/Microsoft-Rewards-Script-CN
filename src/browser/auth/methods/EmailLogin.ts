@@ -44,7 +44,7 @@ export class EmailLogin {
                 this.bot.logger.warn(this.bot.isMobile, 'LOGIN-ENTER-EMAIL', 'Could not submit email')
                 return 'error'
             }
-            this.bot.logger.info(this.bot.isMobile, 'LOGIN-ENTER-EMAIL', 'Email submitted')
+            this.bot.logger.info(this.bot.isMobile, 'LOGIN-ENTER-EMAIL', '提交邮箱')
 
             return 'ok'
         } catch (error) {

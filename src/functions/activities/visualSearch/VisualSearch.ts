@@ -428,7 +428,7 @@ export class VisualSearch extends BaseActivity {
                 this.bot.logger.info(
                     this.bot.isMobile,
                     'VISUAL-SEARCH',
-                    `Daily visual search done | pointsGained=${gained} | 当前积分=${res.balance} | query="${visual.query}"`,
+                    `Daily visual search done | 获得积分=${gained} | 当前积分=${res.balance} | query="${visual.query}"`,
                     'green'
                 )
                 return gained
@@ -438,7 +438,7 @@ export class VisualSearch extends BaseActivity {
                 this.bot.logger.info(
                     this.bot.isMobile,
                     'VISUAL-SEARCH',
-                    `Daily visual search registered | pointsGained=0 (streak pays out on milestones) | query="${visual.query}"`,
+                    `Daily visual search registered | 获得积分=0 (streak pays out on milestones) | query="${visual.query}"`,
                     'green'
                 )
                 return 0

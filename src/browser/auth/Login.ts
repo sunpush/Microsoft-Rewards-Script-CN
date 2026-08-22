@@ -475,11 +475,11 @@ export class Login {
                 return true
 
             case 'EMAIL_INPUT': {
-                this.bot.logger.info(this.bot.isMobile, 'LOGIN', 'Entering email')
+                this.bot.logger.info(this.bot.isMobile, 'LOGIN', '输入邮箱')
                 const result = await this.emailLogin.enterEmail(page, account.email)
                 if (result !== 'ok') return false
                 await this.waitForIdle(page, 'after email entry')
-                this.bot.logger.info(this.bot.isMobile, 'LOGIN', 'Email entered successfully')
+                this.bot.logger.info(this.bot.isMobile, 'LOGIN', '邮箱输入成功')
                 return true
             }
 

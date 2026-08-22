@@ -924,7 +924,7 @@ export class MicrosoftRewardsBot {
                 this.logger.info(
                     'main',
                     'FLOW',
-                    `Points collected | pointsGained=${collectedPoints} | currentBalance=${finalPoints} | account=${accountEmail}`
+                    `积分收集 | 获得积分=${collectedPoints} | 最终积分=${finalPoints} | 账户=${accountEmail}`
                 )
 
                 return {

@@ -29,7 +29,7 @@ export class ClaimBonusPoints extends BaseActivity {
             this.bot.logger.debug(
                 this.bot.isMobile,
                 'CLAIM-BONUS-POINTS',
-                `Response | status=${status} | acknowledged=${acknowledged} | previousBalance=${oldBalance} | 当前积分=${newBalance} | pointsGained=${gainedPoints}`
+                `Response | status=${status} | acknowledged=${acknowledged} | previousBalance=${oldBalance} | 当前积分=${newBalance} | 获得积分=${gainedPoints}`
             )
 
             if (acknowledged) {
@@ -41,14 +41,14 @@ export class ClaimBonusPoints extends BaseActivity {
                 this.bot.logger.info(
                     this.bot.isMobile,
                     'CLAIM-BONUS-POINTS',
-                    `Completed ClaimBonusPoints | acknowledged=true | pointsGained=${gainedPoints} | 当前积分=${newBalance}`,
+                    `Completed ClaimBonusPoints | acknowledged=true | 获得积分=${gainedPoints} | 当前积分=${newBalance}`,
                     'green'
                 )
             } else {
                 this.bot.logger.info(
                     this.bot.isMobile,
                     'CLAIM-BONUS-POINTS',
-                    `Nothing claimed | status=${status} | pointsGained=0 | 当前积分=${newBalance}`
+                    `Nothing claimed | status=${status} | 获得积分=0 | 当前积分=${newBalance}`
                 )
             }
 
