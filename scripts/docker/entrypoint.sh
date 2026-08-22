@@ -38,7 +38,7 @@ if [ "$acct_count" -eq 0 ]; then
   echo "WARNING: No ACCOUNT_N_EMAIL found in environment - the script will fail." >&2
   echo "         Set at least one ACCOUNT_N_EMAIL in your .env file." >&2
 else
-  echo "[entrypoint] Found $acct_count account(s) in environment"
+  echo "[entrypoint] 在环境中发现 $acct_count 账户"
 fi
 
 CONFIG_FILE="$SCRIPT_DIR/config/config.json"
@@ -82,7 +82,7 @@ export -p > /etc/container_env
 chmod 600 /etc/container_env
 
 if [ "${RUN_ON_START:-false}" = "true" ]; then
-  echo "[entrypoint] Starting initial run in background at $(date)"
+  echo "[entrypoint] 在后台开始初始运行 $(date)"
   (
     cd "$SCRIPT_DIR" || {
       echo "[entrypoint-bg] ERROR: Unable to cd to $SCRIPT_DIR" >&2

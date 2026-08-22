@@ -899,7 +899,7 @@ export class MicrosoftRewardsBot {
                 this.logger.info(
                     'main',
                     'SEARCH-MANAGER',
-                    `Search summary | mobile=${mobilePoints} | desktop=${desktopPoints} | bonus=${bonusPoints} | total=${
+                    `搜索总结 | mobile=${mobilePoints} | desktop=${desktopPoints} | bonus=${bonusPoints} | total=${
                         mobilePoints + desktopPoints + bonusPoints
                     }`
                 )
