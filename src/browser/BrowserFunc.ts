@@ -462,7 +462,7 @@ export default class BrowserFunc {
                     await rootBrowser.close().catch(() => {})
                 }
 
-                this.bot.logger.info(this.bot.isMobile, 'CLOSE-BROWSER', 'All browser resources closed.')
+                this.bot.logger.info(this.bot.isMobile, 'CLOSE-BROWSER', '关闭所有浏览器资源')
             } catch (error) {
                 if (isBrowserClosedError(error)) {
                     this.bot.logger.debug(this.bot.isMobile, 'CLOSE-BROWSER', 'Browser was already closed.')

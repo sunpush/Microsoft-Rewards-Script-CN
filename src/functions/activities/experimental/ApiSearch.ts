@@ -16,7 +16,7 @@ export class ApiSearch extends BaseActivity {
         const startBalance = Number(this.bot.userData.currentPoints ?? 0)
         let totalGained = 0
 
-        this.bot.logger.info(isMobile, 'SEARCH-BING', `Starting Bing searches | currentBalance=${startBalance}`)
+        this.bot.logger.info(isMobile, 'SEARCH-BING', `Starting Bing searches | 当前积分=${startBalance}`)
 
         try {
             const missing = await this.searchProgress.getMissing(isMobile)
@@ -114,7 +114,7 @@ export class ApiSearch extends BaseActivity {
                     this.bot.logger.info(
                         isMobile,
                         'SEARCH-BING',
-                        `pointsGained=${gained} | currentBalance=${res.balance} | query="${query}"` +
+                        `pointsGained=${gained} | 当前积分=${res.balance} | query="${query}"` +
                             ` | remaining=${remainingPoints} | searchPts=${cap}`,
                         'green'
                     )
@@ -159,7 +159,7 @@ export class ApiSearch extends BaseActivity {
             this.bot.logger.info(
                 isMobile,
                 'SEARCH-BING',
-                `Completed Bing searches | pointsGained=${totalGained} | currentBalance=${this.bot.userData.currentPoints} | previousBalance=${startBalance} | searches=${performed}`
+                `Completed Bing searches | pointsGained=${totalGained} | 当前积分=${this.bot.userData.currentPoints} | previousBalance=${startBalance} | searches=${performed}`
             )
             return totalGained
         } catch (error) {
@@ -218,7 +218,7 @@ export class ApiSearch extends BaseActivity {
                     this.bot.logger.info(
                         isMobile,
                         tracker.context,
-                        `pointsGained=${gained} | currentBalance=${this.bot.userData.currentPoints} | query="${query}" | ${tracker.progress()}`,
+                        `pointsGained=${gained} | 当前积分=${this.bot.userData.currentPoints} | query="${query}" | ${tracker.progress()}`,
                         'green'
                     )
                 } else {
@@ -259,7 +259,7 @@ export class ApiSearch extends BaseActivity {
         this.bot.logger.info(
             isMobile,
             tracker.context,
-            `Bonus farming ${done ? 'complete' : 'stopped'} (${reason}) | pointsGained=${totalGained} | currentBalance=${this.bot.userData.currentPoints} | ${tracker.progress()} | searches=${performed}`,
+            `Bonus farming ${done ? 'complete' : 'stopped'} (${reason}) | pointsGained=${totalGained} | 当前积分=${this.bot.userData.currentPoints} | ${tracker.progress()} | searches=${performed}`,
             done || totalGained > 0 ? 'green' : undefined
         )
         return totalGained

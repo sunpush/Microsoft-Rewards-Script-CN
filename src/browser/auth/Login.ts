@@ -94,7 +94,7 @@ export class Login {
             this.capturedUnknownUrls.clear()
             this.signInMethodsLogged = false
             this.passwordlessMethodSelected = false
-            this.bot.logger.info(this.bot.isMobile, 'LOGIN', 'Starting login process')
+            this.bot.logger.info(this.bot.isMobile, 'LOGIN', '启动登录流程')
 
             await page
                 .goto(URLs.rewards.createUser, {
@@ -148,7 +148,7 @@ export class Login {
                 previousState = state
 
                 if (state === 'LOGGED_IN') {
-                    this.bot.logger.info(this.bot.isMobile, 'LOGIN', 'Successfully logged in')
+                    this.bot.logger.info(this.bot.isMobile, 'LOGIN', '登录成功')
                     break
                 }
 
@@ -865,7 +865,7 @@ export class Login {
     }
 
     private async finalizeLogin(page: Page, account: Account) {
-        this.bot.logger.info(this.bot.isMobile, 'LOGIN', 'Finalizing login')
+        this.bot.logger.info(this.bot.isMobile, 'LOGIN', '正在完成登录')
 
         await page.goto(REWARDS_BASE_URL, { waitUntil: 'networkidle', timeout: 10000 }).catch(() => {})
 
@@ -874,7 +874,7 @@ export class Login {
         const loginRewardsSuccess = rewardsHostname === 'bing.com' || rewardsHostname.endsWith('.bing.com')
         if (loginRewardsSuccess) {
             if (rewardsHostname === 'rewards.bing.com') {
-                this.bot.logger.info(this.bot.isMobile, 'LOGIN', 'Logged into Microsoft Rewards successfully')
+                this.bot.logger.info(this.bot.isMobile, 'LOGIN', '成功登录Microsoft Rewards')
             } else {
                 this.bot.logger.info(
                     this.bot.isMobile,
@@ -889,7 +889,7 @@ export class Login {
         // Dismiss at rewards dashboard
         await this.bot.browser.utils.tryDismissAllMessages(page).catch(() => {})
 
-        this.bot.logger.info(this.bot.isMobile, 'LOGIN', 'Starting Bing session verification')
+        this.bot.logger.info(this.bot.isMobile, 'LOGIN', '启动Bing session验证')
         await this.verifyBingSession(page, account)
 
         this.bot.logger.info(this.bot.isMobile, 'LOGIN', 'Acquiring rewards context')
@@ -904,7 +904,7 @@ export class Login {
         )
         saveStorageState(this.bot.config.sessionPath, account.email, this.bot.isMobile, storageState)
 
-        this.bot.logger.info(this.bot.isMobile, 'LOGIN', 'Login completed, session saved')
+        this.bot.logger.info(this.bot.isMobile, 'LOGIN', '完成登录, session 已保存')
     }
 
     async verifyBingSession(page: Page, account: Account) {
@@ -952,7 +952,7 @@ export class Login {
                     this.bot.logger.debug(this.bot.isMobile, 'LOGIN-BING', `Profile element found: ${signedIn}`)
 
                     if (signedIn || this.bot.isMobile) {
-                        this.bot.logger.info(this.bot.isMobile, 'LOGIN-BING', 'Bing session verified successfully')
+                        this.bot.logger.info(this.bot.isMobile, 'LOGIN-BING', 'Bing session 验证成功')
                         return
                     }
                 }

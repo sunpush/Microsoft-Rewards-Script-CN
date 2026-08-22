@@ -108,14 +108,10 @@ class Browser {
                 this.bot.logger.info(
                     this.bot.isMobile,
                     'SESSION',
-                    `Restoring saved browser session | cookies=${session.storageState.cookies.length} | origins=${session.storageState.origins.length} | ageMinutes=${ageMinutes}`
+                    `恢复保存的浏览器会话 | cookies=${session.storageState.cookies.length} | origins=${session.storageState.origins.length} | ageMinutes=${ageMinutes}`
                 )
             } else {
-                this.bot.logger.info(
-                    this.bot.isMobile,
-                    'SESSION',
-                    'No saved browser session found; login may be required'
-                )
+                this.bot.logger.info(this.bot.isMobile, 'SESSION', '没有找到保存的浏览器会话；可能需要登入')
             }
 
             const shouldUseFingerprint = this.bot.isMobile

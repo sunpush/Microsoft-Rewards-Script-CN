@@ -59,7 +59,7 @@ export class ClaimReward extends BaseActivity {
             this.bot.logger.debug(
                 this.bot.isMobile,
                 'CLAIM-REWARD',
-                `Claim response | offerId=${offerId} | status=${status} | acknowledged=${acknowledged} | pointsGained=${gained} | currentBalance=${newBalance}`
+                `Claim response | offerId=${offerId} | status=${status} | acknowledged=${acknowledged} | pointsGained=${gained} | 当前积分=${newBalance}`
             )
 
             if (acknowledged) {
@@ -71,7 +71,7 @@ export class ClaimReward extends BaseActivity {
                 this.bot.logger.info(
                     this.bot.isMobile,
                     'CLAIM-REWARD',
-                    `Reward claimed | offerId=${offerId} | status=${status} | pointsGained=${gained} | currentBalance=${newBalance}`,
+                    `Reward claimed | offerId=${offerId} | status=${status} | pointsGained=${gained} | 当前积分=${newBalance}`,
                     'green'
                 )
             } else {

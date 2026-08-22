@@ -269,7 +269,7 @@ export class MicrosoftRewardsBot {
         this.logger.info(
             'main',
             'RUN-START',
-            `Starting Microsoft Rewards Script | v${pkg.version} | Accounts: ${totalAccounts} | Clusters: ${this.config.clusters}`
+            `开始执行脚本 | v${pkg.version} | 账户: ${totalAccounts} | 集群: ${this.config.clusters}`
         )
 
         if (this.config.clusters > 1) {
@@ -354,7 +354,7 @@ export class MicrosoftRewardsBot {
                 this.logger.info(
                     'main',
                     'RUN-END',
-                    `Completed all accounts | accountsProcessed=${allAccountStats.length} | pointsGained=${totalCollectedPoints} | previousBalance=${totalInitialPoints} | currentBalance=${totalFinalPoints} | runtimeMinutes=${totalDurationMinutes}`,
+                    `完成所有账户 | 账户数=${allAccountStats.length} | 总收集积分=${totalCollectedPoints} | 原始总计=${totalInitialPoints} | 新总计=${totalFinalPoints} | 总运行时间=${totalDurationMinutes}`,
                     'green'
                 )
 
@@ -429,7 +429,7 @@ export class MicrosoftRewardsBot {
                 this.logger.info(
                     'main',
                     'ACCOUNT-START',
-                    `Starting account: ${accountEmail} | geoLocale: ${account.geoLocale} | locale: ${this.accountLocale.locale}${
+                    `正在开始执行的账户: ${accountEmail} | geoLocale: ${account.geoLocale} | locale: ${this.accountLocale.locale}${
                         cachedRegion ? ` | cachedRegion: ${cachedRegion}` : ''
                     }`
                 )
@@ -468,7 +468,7 @@ export class MicrosoftRewardsBot {
                         this.logger.warn(
                             'main',
                             'ACCOUNT-SKIP',
-                            `Skipped account: ${accountEmail} | reason=Fraud_UserWarning_BotScore_UX | durationSeconds=${durationSeconds}`
+                            `跳过账户: ${accountEmail} | 原因=Fraud_UserWarning_BotScore_UX | 持续时间=${durationSeconds}`
                         )
                     } else {
                         accountStats.push({
@@ -483,7 +483,7 @@ export class MicrosoftRewardsBot {
                         this.logger.info(
                             'main',
                             'ACCOUNT-END',
-                            `Completed account: ${accountEmail} | pointsGained=${collectedPoints} | previousBalance=${accountInitialPoints} | currentBalance=${accountFinalPoints} | durationSeconds=${durationSeconds}`,
+                            `完成账户: ${accountEmail} | 获得积分=${collectedPoints} | 初始积分=${accountInitialPoints} | 当前积分=${accountFinalPoints} | 持续时间=${durationSeconds}`,
                             'green'
                         )
                     }
@@ -527,7 +527,7 @@ export class MicrosoftRewardsBot {
             this.logger.info(
                 'main',
                 'RUN-END',
-                `Completed all accounts | accountsProcessed=${accountStats.length} | pointsGained=${totalCollectedPoints} | previousBalance=${totalInitialPoints} | currentBalance=${totalFinalPoints} | runtimeMinutes=${totalDurationMinutes}`,
+                `完成所有账户 | 账户数=${accountStats.length} | 总收集积分=${totalCollectedPoints} | 原始总计=${totalInitialPoints} | 新总计=${totalFinalPoints} | 总运行时间=${totalDurationMinutes}`,
                 'green'
             )
 
@@ -627,7 +627,7 @@ export class MicrosoftRewardsBot {
                 const initialContext: BrowserContext = mobileSession.context
                 this.mainMobilePage = await initialContext.newPage()
 
-                this.logger.info('main', 'BROWSER', `Mobile Browser started | ${accountEmail}`)
+                this.logger.info('main', 'BROWSER', `移动浏览器已启动 | ${accountEmail}`)
 
                 await this.login.login(this.mainMobilePage, account)
 
