@@ -40,14 +40,14 @@ export class ApiSearchOnBing extends BaseActivity {
                 this.bot.logger.info(
                     this.bot.isMobile,
                     'SEARCH-ON-BING',
-                    `Completed SearchOnBing | offerId=${offerId} | pointsGained=${this.gainedPoints} | 当前积分=${this.bot.userData.currentPoints} | previousBalance=${this.oldBalance}`,
+                    `Completed SearchOnBing | offerId=${offerId} | 获得积分=${this.gainedPoints} | 当前积分=${this.bot.userData.currentPoints} | previousBalance=${this.oldBalance}`,
                     'green'
                 )
             } else {
                 this.bot.logger.warn(
                     this.bot.isMobile,
                     'SEARCH-ON-BING',
-                    `Failed SearchOnBing | offerId=${offerId} | pointsGained=${this.gainedPoints} | 当前积分=${this.bot.userData.currentPoints} | previousBalance=${this.oldBalance}`
+                    `Failed SearchOnBing | offerId=${offerId} | 获得积分=${this.gainedPoints} | 当前积分=${this.bot.userData.currentPoints} | previousBalance=${this.oldBalance}`
                 )
             }
         } catch (error) {
@@ -119,7 +119,7 @@ export class ApiSearchOnBing extends BaseActivity {
                     this.bot.logger.info(
                         this.bot.isMobile,
                         'SEARCH-ON-BING-SEARCH',
-                        `SearchOnBing activity completed | pointsGained=${this.gainedPoints} | 当前积分=${newBalance} | query="${query}" | offerProgress=${offerProgress}`,
+                        `SearchOnBing activity completed | 获得积分=${this.gainedPoints} | 当前积分=${newBalance} | query="${query}" | offerProgress=${offerProgress}`,
                         'green'
                     )
                     return
@@ -146,7 +146,7 @@ export class ApiSearchOnBing extends BaseActivity {
         this.bot.logger.warn(
             this.bot.isMobile,
             'SEARCH-ON-BING-SEARCH',
-            `Finished all queries without completing the activity | queriesTried=${queries.length} | offerId=${offerId} | pointsGained=${this.gainedPoints} | 当前积分=${this.bot.userData.currentPoints} | previousBalance=${this.oldBalance}`
+            `Finished all queries without completing the activity | queriesTried=${queries.length} | offerId=${offerId} | 获得积分=${this.gainedPoints} | 当前积分=${this.bot.userData.currentPoints} | previousBalance=${this.oldBalance}`
         )
     }
 

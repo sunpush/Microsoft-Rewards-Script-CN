@@ -41,7 +41,7 @@ export class DailyCheckIn extends BaseActivity {
             this.bot.logger.debug(
                 this.bot.isMobile,
                 'DAILY-CHECK-IN',
-                `Balance delta after Daily Check-In | type=103 | previousBalance=${this.oldBalance} | 当前积分=${newBalance} | pointsGained=${this.gainedPoints}`
+                `Balance delta after Daily Check-In | type=103 | previousBalance=${this.oldBalance} | 当前积分=${newBalance} | 获得积分=${this.gainedPoints}`
             )
 
             if (this.gainedPoints > 0) {
@@ -51,14 +51,14 @@ export class DailyCheckIn extends BaseActivity {
                 this.bot.logger.info(
                     this.bot.isMobile,
                     'DAILY-CHECK-IN',
-                    `Completed Daily Check-In | type=103 | pointsGained=${this.gainedPoints} | 当前积分=${newBalance}`,
+                    `Completed Daily Check-In | type=103 | 获得积分=${this.gainedPoints} | 当前积分=${newBalance}`,
                     'green'
                 )
             } else {
                 this.bot.logger.warn(
                     this.bot.isMobile,
                     'DAILY-CHECK-IN',
-                    `Daily Check-In completed but no points gained | type=103 | pointsGained=0 | 当前积分=${newBalance}`
+                    `Daily Check-In completed but no points gained | type=103 | 获得积分=0 | 当前积分=${newBalance}`
                 )
             }
         } catch (error) {

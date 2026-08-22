@@ -46,7 +46,7 @@ export class Search extends BaseActivity {
             this.bot.logger.info(
                 isMobile,
                 tracker.context,
-                `Completed Bing searches | pointsGained=${stats.totalGained} | 当前积分=${this.bot.userData.currentPoints} | previousBalance=${startBalance} | searches=${stats.performed} | ${tracker.progress()}`
+                `Completed Bing searches | 获得积分=${stats.totalGained} | 当前积分=${this.bot.userData.currentPoints} | previousBalance=${startBalance} | searches=${stats.performed} | ${tracker.progress()}`
             )
             return stats.totalGained
         } finally {
@@ -76,7 +76,7 @@ export class Search extends BaseActivity {
         this.bot.logger.info(
             isMobile,
             tracker.context,
-            `Bonus farming ${done ? 'complete' : 'stopped'} (${reason}) | pointsGained=${stats.totalGained} | 当前积分=${this.bot.userData.currentPoints} | ${tracker.progress()} | searches=${stats.performed}`,
+            `Bonus farming ${done ? 'complete' : 'stopped'} (${reason}) | 获得积分=${stats.totalGained} | 当前积分=${this.bot.userData.currentPoints} | ${tracker.progress()} | searches=${stats.performed}`,
             done || stats.totalGained > 0 ? 'green' : undefined
         )
         return stats.totalGained
@@ -125,7 +125,7 @@ export class Search extends BaseActivity {
                     this.bot.logger.info(
                         isMobile,
                         tracker.context,
-                        `pointsGained=${gained} | 当前积分=${this.bot.userData.currentPoints} | query="${query}" | ${tracker.progress()}`,
+                        `获得积分=${gained} | 当前积分=${this.bot.userData.currentPoints} | query="${query}" | ${tracker.progress()}`,
                         'green'
                     )
                 } else {

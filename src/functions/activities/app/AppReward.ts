@@ -79,7 +79,7 @@ export class AppReward extends BaseActivity {
             this.bot.logger.debug(
                 this.bot.isMobile,
                 'APP-REWARD',
-                `Balance delta after AppReward | offerId=${offerId} | previousBalance=${this.oldBalance} | 当前积分=${newBalance} | pointsGained=${this.gainedPoints}`
+                `Balance delta after AppReward | offerId=${offerId} | previousBalance=${this.oldBalance} | 当前积分=${newBalance} | 获得积分=${this.gainedPoints}`
             )
 
             if (this.gainedPoints > 0) {
@@ -89,14 +89,14 @@ export class AppReward extends BaseActivity {
                 this.bot.logger.info(
                     this.bot.isMobile,
                     'APP-REWARD',
-                    `Completed AppReward | offerId=${offerId} | pointsGained=${this.gainedPoints} | 当前积分=${newBalance}`,
+                    `Completed AppReward | offerId=${offerId} | 获得积分=${this.gainedPoints} | 当前积分=${newBalance}`,
                     'green'
                 )
             } else {
                 this.bot.logger.warn(
                     this.bot.isMobile,
                     'APP-REWARD',
-                    `Completed AppReward with no points | offerId=${offerId} | pointsGained=0 | 当前积分=${newBalance}`
+                    `Completed AppReward with no points | offerId=${offerId} | 获得积分=0 | 当前积分=${newBalance}`
                 )
             }
 

@@ -114,7 +114,7 @@ export class ApiSearch extends BaseActivity {
                     this.bot.logger.info(
                         isMobile,
                         'SEARCH-BING',
-                        `pointsGained=${gained} | 当前积分=${res.balance} | query="${query}"` +
+                        `获得积分=${gained} | 当前积分=${res.balance} | query="${query}"` +
                             ` | remaining=${remainingPoints} | searchPts=${cap}`,
                         'green'
                     )
@@ -159,7 +159,7 @@ export class ApiSearch extends BaseActivity {
             this.bot.logger.info(
                 isMobile,
                 'SEARCH-BING',
-                `Completed Bing searches | pointsGained=${totalGained} | 当前积分=${this.bot.userData.currentPoints} | previousBalance=${startBalance} | searches=${performed}`
+                `Completed Bing searches | 获得积分=${totalGained} | 当前积分=${this.bot.userData.currentPoints} | previousBalance=${startBalance} | searches=${performed}`
             )
             return totalGained
         } catch (error) {
@@ -218,7 +218,7 @@ export class ApiSearch extends BaseActivity {
                     this.bot.logger.info(
                         isMobile,
                         tracker.context,
-                        `pointsGained=${gained} | 当前积分=${this.bot.userData.currentPoints} | query="${query}" | ${tracker.progress()}`,
+                        `获得积分=${gained} | 当前积分=${this.bot.userData.currentPoints} | query="${query}" | ${tracker.progress()}`,
                         'green'
                     )
                 } else {
@@ -259,7 +259,7 @@ export class ApiSearch extends BaseActivity {
         this.bot.logger.info(
             isMobile,
             tracker.context,
-            `Bonus farming ${done ? 'complete' : 'stopped'} (${reason}) | pointsGained=${totalGained} | 当前积分=${this.bot.userData.currentPoints} | ${tracker.progress()} | searches=${performed}`,
+            `Bonus farming ${done ? 'complete' : 'stopped'} (${reason}) | 获得积分=${totalGained} | 当前积分=${this.bot.userData.currentPoints} | ${tracker.progress()} | searches=${performed}`,
             done || totalGained > 0 ? 'green' : undefined
         )
         return totalGained

@@ -201,7 +201,7 @@ export class PunchCards extends BaseActivity {
             this.bot.isMobile,
             'PUNCHCARD',
             `Quest "${title}" ${remaining === 0 ? 'COMPLETE' : 'in progress'} | reported=${reported}` +
-                `${remaining ? ` | remaining=${remaining}` : ''} | pointsGained=${gained}` +
+                `${remaining ? ` | remaining=${remaining}` : ''} | 获得积分=${gained}` +
                 ` | 当前积分=${this.bot.userData.currentPoints}` +
                 `${parent.pointProgressMax > 0 ? ` | targetPoints=${parent.pointProgressMax}` : ''}`,
             gained > 0 ? 'green' : undefined
@@ -280,7 +280,7 @@ export class PunchCards extends BaseActivity {
                 this.bot.isMobile,
                 'PUNCHCARD',
                 `Reported child | offerId=${child.offerId} | status=${status} | acknowledged=${acknowledged}` +
-                    ` | pointsGained=${gained} | 当前积分=${newBalance}`,
+                    ` | 获得积分=${gained} | 当前积分=${newBalance}`,
                 gained > 0 || acknowledged ? 'green' : undefined
             )
         } catch (error) {
