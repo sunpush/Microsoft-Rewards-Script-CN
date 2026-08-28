@@ -501,7 +501,7 @@ export class Login {
                     return false
                 }
 
-                this.bot.logger.info(this.bot.isMobile, 'LOGIN', 'Entering password')
+                this.bot.logger.info(this.bot.isMobile, 'LOGIN', '输入密码')
                 const result = await this.emailLogin.enterPassword(page, account.password)
                 if (result === 'error') return false
                 await this.waitForIdle(page, 'after password entry')
@@ -690,7 +690,7 @@ export class Login {
                     await this.waitForIdle(page, 'after email verification alternative')
 
                     if (await this.checkSelector(page, this.selectors.passwordEntry)) {
-                        this.bot.logger.info(this.bot.isMobile, 'LOGIN', 'Password sign-in option selected')
+                        this.bot.logger.info(this.bot.isMobile, 'LOGIN', '已选择密码登录选项')
                         return true
                     }
 

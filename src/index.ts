@@ -563,7 +563,7 @@ export class MicrosoftRewardsBot {
         this.mainDesktopPage = await session.context.newPage()
         this.fingerprintDesktop = session.fingerprint
 
-        this.logger.info(this.isMobile, 'BROWSER', `Desktop Browser started | ${account.email}`)
+        this.logger.info(this.isMobile, 'BROWSER', `启动桌面浏览器 | ${account.email}`)
 
         await this.login.login(this.mainDesktopPage, account)
         await this.browser.func.checkpointActiveSession('LOGIN-CHECKPOINT')
@@ -574,7 +574,7 @@ export class MicrosoftRewardsBot {
 
     async Main(account: Account): Promise<AccountRunResult> {
         const accountEmail = account.email
-        this.logger.info('main', 'FLOW', `Starting session for ${accountEmail}`)
+        this.logger.info('main', 'FLOW', `开始会话 ${accountEmail}`)
 
         this.accessToken = ''
         this.cookies = { mobile: [], desktop: [] }

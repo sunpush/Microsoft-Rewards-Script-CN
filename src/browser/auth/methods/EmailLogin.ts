@@ -88,7 +88,7 @@ export class EmailLogin {
                 this.bot.logger.warn(this.bot.isMobile, 'LOGIN-ENTER-PASSWORD', 'Could not submit password')
                 return 'error'
             }
-            this.bot.logger.info(this.bot.isMobile, 'LOGIN-ENTER-PASSWORD', 'Password submitted')
+            this.bot.logger.info(this.bot.isMobile, 'LOGIN-ENTER-PASSWORD', '提交密码')
 
             return 'ok'
         } catch (error) {

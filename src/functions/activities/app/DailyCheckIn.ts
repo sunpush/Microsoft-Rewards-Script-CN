@@ -51,7 +51,7 @@ export class DailyCheckIn extends BaseActivity {
                 this.bot.logger.info(
                     this.bot.isMobile,
                     'DAILY-CHECK-IN',
-                    `Completed Daily Check-In | type=103 | 获得积分=${this.gainedPoints} | 当前积分=${newBalance}`,
+                    `完成每日签到 | type=103 | 获得积分=${this.gainedPoints} | 当前积分=${newBalance}`,
                     'green'
                 )
             } else {
