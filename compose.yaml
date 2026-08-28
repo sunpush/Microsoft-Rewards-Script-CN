@@ -44,14 +44,21 @@ services:
             #API_ALLOW_CONFIG_WRITE: 'true'
 
             #  ── Configuration ──────────────────────────────────────
-            CONFIG_TELEGRAM_ENABLED: 'true'
-            CONFIG_TELEGRAM_BOTTOKEN: '8938408745:AAH3XgvUUEy1KRsHQZj9EXafU1asYmpsL2s'
-            CONFIG_TELEGRAM_CHATID: '-1004439706560'
-
             # Uncomment to override defaults, a full list of configuration options are in the README.
+            CONFIG_AUTO_CLAIM_PUNCHCARD_REWARDS: 'true'
             #CONFIG_CLUSTERS: '1'
-            #CONFIG_ACCOUNT_DELAY_MIN: '1min'
-            #CONFIG_ACCOUNT_DELAY_MAX: '3min'
+            CONFIG_ACCOUNT_DELAY_MIN: '2min'
+            CONFIG_ACCOUNT_DELAY_MAX: '5min'
+            CONFIG_WORKER_VISUAL_SEARCH: 'true'
+            CONFIG_SEARCH_SCROLL_RANDOM: 'true'
+            CONFIG_SEARCH_CLICK_RANDOM: 'true'
+            CONFIG_SEARCH_PARALLEL: 'false'
+            CONFIG_SEARCH_VISIT_TIME: '15sec'
+            CONFIG_SEARCH_DELAY_MIN: '50sec'
+            CONFIG_SEARCH_DELAY_MAX: '3min'
+            CONFIG_SEARCH_READ_DELAY_MIN: '50sec'
+            CONFIG_SEARCH_READ_DELAY_MAX: '2min'
+
             # Continue even if Microsoft reports Fraud_UserWarning_BotScore_UX (not recommended).
             #CONFIG_CONTINTUE_ON_BOT_WARNING: 'false'
             # Block browser image/video/audio requests to reduce transferred media bytes.

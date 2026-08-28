@@ -22,7 +22,7 @@ export class ReadToEarn extends BaseActivity {
         this.bot.logger.info(
             this.bot.isMobile,
             'READ-TO-EARN',
-            `Starting Read to Earn | geo=${this.bot.userData.geoLocale} | delayRange=${delayMin}-${delayMax} | 当前积分=${startBalance}`
+            `开始阅读任务 | geo=${this.bot.userData.geoLocale} | 延迟范围=${delayMin}-${delayMax} | 当前积分=${startBalance}`
         )
 
         try {
