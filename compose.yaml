@@ -1,6 +1,6 @@
 services:
     ms_rewards:
-        image: ms_rewards:4.3.1
+        image: ms_rewards:4.3.2
         # To build locally instead of pulling the prebuilt image, use the build section below.
         build:
             context: .
@@ -9,13 +9,6 @@ services:
         volumes:
             - ./config_${NO}:/usr/src/microsoft-rewards-script/config
             - ./sessions_${NO}:/usr/src/microsoft-rewards-script/sessions
-        deploy:
-            resources:
-                limits:
-                    cpus: '1'
-                    memory: 1024M
-                reservations:
-                    memory: 256M
         env_file:
             # Load account credentials from the .env file (ACCOUNT_1_EMAIL, optional ACCOUNT_1_PASSWORD, etc.)
             - path: .env
