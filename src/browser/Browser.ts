@@ -108,7 +108,10 @@ class Browser {
                 this.bot.logger.info(
                     this.bot.isMobile,
                     'SESSION',
-                    `恢复保存的浏览器会话 | cookies=${session.storageState.cookies.length} | origins=${session.storageState.origins.length} | ageMinutes=${ageMinutes}`
+                    `恢复保存的浏览器会话 | cookies=${session.storageState.cookies.length} | origins=${session.storageState.origins.length} | ageMinutes=${ageMinutes}` +
+                        (session.expiredCookiesRemoved
+                            ? ` | expiredCookiesRemoved=${session.expiredCookiesRemoved}`
+                            : '')
                 )
             } else {
                 this.bot.logger.info(this.bot.isMobile, 'SESSION', '没有找到保存的浏览器会话；可能需要登入')
