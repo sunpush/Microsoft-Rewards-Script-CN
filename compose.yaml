@@ -1,6 +1,6 @@
 services:
     ms_rewards:
-        image: ms_rewards:4.3.1
+        image: ms_rewards:4.3.2
         # To build locally instead of pulling the prebuilt image, use the build section below.
         build:
             context: .
@@ -9,13 +9,6 @@ services:
         volumes:
             - ./config_${NO}:/usr/src/microsoft-rewards-script/config
             - ./sessions_${NO}:/usr/src/microsoft-rewards-script/sessions
-        deploy:
-            resources:
-                limits:
-                    cpus: '1'
-                    memory: 1024M
-                reservations:
-                    memory: 256M
         env_file:
             # Load account credentials from the .env file (ACCOUNT_1_EMAIL, optional ACCOUNT_1_PASSWORD, etc.)
             - path: .env
@@ -27,7 +20,7 @@ services:
             # API schedule changes are saved to ./config/schedule.json, delete
             # that file to revert to the base CRON_SCHEDULE again.
             CRON_SCHEDULE: ${CRON_SCHEDULE} # use crontab.guru to customize your schedule
-            RUN_ON_START: 'true' # run script immediately on container start
+            RUN_ON_START: 'false' # run script immediately on container start
             SKIP_RANDOM_SLEEP: 'false'
             #MIN_SLEEP_MINUTES: "5"
             #MAX_SLEEP_MINUTES: "50"
@@ -47,17 +40,17 @@ services:
             # Uncomment to override defaults, a full list of configuration options are in the README.
             CONFIG_AUTO_CLAIM_PUNCHCARD_REWARDS: 'true'
             #CONFIG_CLUSTERS: '1'
-            CONFIG_ACCOUNT_DELAY_MIN: '2min'
-            CONFIG_ACCOUNT_DELAY_MAX: '5min'
+            CONFIG_ACCOUNT_DELAY_MIN: '3min'
+            CONFIG_ACCOUNT_DELAY_MAX: '8min'
             CONFIG_WORKER_VISUAL_SEARCH: 'true'
             CONFIG_SEARCH_SCROLL_RANDOM: 'true'
             CONFIG_SEARCH_CLICK_RANDOM: 'true'
             CONFIG_SEARCH_PARALLEL: 'false'
-            CONFIG_SEARCH_VISIT_TIME: '15sec'
-            CONFIG_SEARCH_DELAY_MIN: '50sec'
-            CONFIG_SEARCH_DELAY_MAX: '3min'
-            CONFIG_SEARCH_READ_DELAY_MIN: '50sec'
-            CONFIG_SEARCH_READ_DELAY_MAX: '2min'
+            CONFIG_SEARCH_VISIT_TIME: '30sec'
+            CONFIG_SEARCH_DELAY_MIN: '150sec'
+            CONFIG_SEARCH_DELAY_MAX: '10min'
+            CONFIG_SEARCH_READ_DELAY_MIN: '90sec'
+            CONFIG_SEARCH_READ_DELAY_MAX: '8min'
 
             # Continue even if Microsoft reports Fraud_UserWarning_BotScore_UX (not recommended).
             #CONFIG_CONTINTUE_ON_BOT_WARNING: 'false'
