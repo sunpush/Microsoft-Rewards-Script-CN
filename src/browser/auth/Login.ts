@@ -907,14 +907,14 @@ export class Login {
         saveStorageState(this.bot.config.sessionPath, account.email, this.bot.isMobile, storageState)
 
         await configureMediaBlocking(this.bot, context)
-        this.bot.logger.info(this.bot.isMobile, 'LOGIN', 'Login completed, session saved')
+        this.bot.logger.info(this.bot.isMobile, 'LOGIN', '登录完成，会话保存')
     }
 
     async verifyBingSession(page: Page, account: Account) {
         const url = URLs.auth.bingSignIn
         const loopMax = 5
 
-        this.bot.logger.info(this.bot.isMobile, 'LOGIN-BING', 'Verifying Bing session')
+        this.bot.logger.info(this.bot.isMobile, 'LOGIN-BING', '验证Bing会话')
 
         try {
             await page.goto(url, { waitUntil: 'networkidle', timeout: 10000 }).catch(() => {})

@@ -18,7 +18,7 @@ export interface IpcLog {
 type ChalkFn = (msg: string) => string
 
 function platformText(platform: Platform): string {
-    return platform === 'main' ? 'MAIN' : platform ? 'MOBILE' : 'DESKTOP'
+    return platform === 'main' ? 'MAIN' : platform ? '移动端' : '桌面端'
 }
 
 function platformBadge(platform: Platform): string {

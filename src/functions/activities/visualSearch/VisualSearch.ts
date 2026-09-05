@@ -53,11 +53,7 @@ export class VisualSearch extends BaseActivity {
 
         const available = streak?.isEnabled === true || activation === 'activated' || activation === 'already-active'
         if (!available) {
-            this.bot.logger.info(
-                this.bot.isMobile,
-                'VISUAL-SEARCH',
-                'Visual search not available for this account, skipping'
-            )
+            this.bot.logger.info(this.bot.isMobile, 'VISUAL-SEARCH', '此帐户无法使用视觉搜索，跳过')
             return 0
         }
 

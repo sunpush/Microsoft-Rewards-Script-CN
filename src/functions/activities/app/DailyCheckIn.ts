@@ -58,14 +58,14 @@ export class DailyCheckIn extends BaseActivity {
                 this.bot.logger.warn(
                     this.bot.isMobile,
                     'DAILY-CHECK-IN',
-                    `Daily Check-In completed but no points gained | type=103 | 获得积分=0 | 当前积分=${newBalance}`
+                    `每日签到已完成，但未获得积分 | type=103 | 获得积分=0 | 当前积分=${newBalance}`
                 )
             }
         } catch (error) {
             this.bot.logger.error(
                 this.bot.isMobile,
                 'DAILY-CHECK-IN',
-                `Error during Daily Check-In | message=${error instanceof Error ? error.message : String(error)}`
+                `每日签到错误 | message=${error instanceof Error ? error.message : String(error)}`
             )
         }
     }
