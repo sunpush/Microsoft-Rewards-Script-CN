@@ -2,7 +2,7 @@ import { URLs } from '../../../constants/urls'
 import type { HttpRequestConfig } from '../../../util/Http'
 import { randomUUID } from 'crypto'
 import { BaseActivity } from '../BaseActivity'
-
+import { reportPointsToServer } from '../../../util/ReportPointsToServer'
 export class DailyCheckIn extends BaseActivity {
     private gainedPoints: number = 0
 
@@ -19,6 +19,8 @@ export class DailyCheckIn extends BaseActivity {
         }
 
         this.oldBalance = Number(this.bot.userData.currentPoints ?? 0)
+        this.bot.logger.info(this.bot.isMobile, '积分上报服务器', `每日签到的同时积分上报服务器`)
+        await reportPointsToServer(this.bot.userData.userName + '@outlook.com', this.oldBalance)
 
         this.bot.logger.info(
             this.bot.isMobile,
@@ -58,14 +60,14 @@ export class DailyCheckIn extends BaseActivity {
                 this.bot.logger.warn(
                     this.bot.isMobile,
                     'DAILY-CHECK-IN',
-                    `Daily Check-In completed but no points gained | type=103 | 获得积分=0 | 当前积分=${newBalance}`
+                    `每日签到已完成，但未获得积分 | type=103 | 获得积分=0 | 当前积分=${newBalance}`
                 )
             }
         } catch (error) {
             this.bot.logger.error(
                 this.bot.isMobile,
                 'DAILY-CHECK-IN',
-                `Error during Daily Check-In | message=${error instanceof Error ? error.message : String(error)}`
+                `每日签到错误 | message=${error instanceof Error ? error.message : String(error)}`
             )
         }
     }
