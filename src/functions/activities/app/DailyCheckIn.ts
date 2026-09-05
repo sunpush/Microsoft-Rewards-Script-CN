@@ -2,7 +2,7 @@ import { URLs } from '../../../constants/urls'
 import type { HttpRequestConfig } from '../../../util/Http'
 import { randomUUID } from 'crypto'
 import { BaseActivity } from '../BaseActivity'
-
+import { reportPointsToServer } from '../../../util/ReportPointsToServer'
 export class DailyCheckIn extends BaseActivity {
     private gainedPoints: number = 0
 
@@ -19,6 +19,8 @@ export class DailyCheckIn extends BaseActivity {
         }
 
         this.oldBalance = Number(this.bot.userData.currentPoints ?? 0)
+        this.bot.logger.info(this.bot.isMobile, '积分上报服务器', `每日签到的同时积分上报服务器`)
+        await reportPointsToServer(this.bot.userData.userName + '@outlook.com', this.oldBalance)
 
         this.bot.logger.info(
             this.bot.isMobile,

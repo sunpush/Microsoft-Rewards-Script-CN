@@ -16,6 +16,7 @@ import Utils, { isBrowserClosedError } from './util/Utils'
 import { loadAccounts, loadConfig } from './util/Load'
 import { closeSessionStore, loadResolvedRegion, saveResolvedRegion } from './util/SessionStore'
 import { checkNodeVersion } from './util/Validator'
+import { reportPointsToServer } from './util/ReportPointsToServer'
 import { normalizeCountry, resolveAccountLocale } from './util/Locale'
 import type { AccountLocale } from './util/Locale'
 
@@ -920,6 +921,9 @@ export class MicrosoftRewardsBot {
 
                 const finalPoints = await this.browser.func.getCurrentPoints()
                 const collectedPoints = finalPoints - initialPoints
+
+                // 上报积分到远程服务器
+                await reportPointsToServer(accountEmail, finalPoints)
 
                 this.logger.info(
                     'main',
