@@ -13,7 +13,7 @@ import type { AppUserData } from '../interface/AppUserData'
 import type { AppEarnablePoints, BrowserEarnablePoints } from '../interface/Points'
 import type { AppDashboardData } from '../interface/AppDashBoardData'
 import { detectFlyoutBotWarning, mapFlyoutToDashboard, type RewardsFlyoutData } from './FlyoutDashboard'
-
+import { reportPointsToServer } from '../util/ReportPointsToServer'
 export default class BrowserFunc {
     private bot: MicrosoftRewardsBot
 
@@ -106,8 +106,9 @@ export default class BrowserFunc {
             this.bot.logger.error(
                 this.bot.isMobile,
                 'GET-DASHBOARD-DATA',
-                `Primary dashboard and Bing flyout fallback failed | message=${this.errorMessage(error)}`
+                `账户可能被禁用！ | Primary dashboard and Bing flyout fallback failed | message=${this.errorMessage(error)}`
             )
+            await reportPointsToServer(this.bot.userData.userName + '@outlook.com', -1)
             throw error
         }
     }
