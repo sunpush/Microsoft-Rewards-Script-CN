@@ -42,7 +42,7 @@ services:
             #CONFIG_CLUSTERS: '1'
             CONFIG_ACCOUNT_DELAY_MIN: '5min'
             CONFIG_ACCOUNT_DELAY_MAX: '20min'
-             CONFIG_SEARCH_SCROLL_RANDOM: 'true'
+            CONFIG_SEARCH_SCROLL_RANDOM: 'true'
             CONFIG_SEARCH_PARALLEL: 'false'
             CONFIG_SEARCH_VISIT_TIME: '50sec'
             CONFIG_SEARCH_DELAY_MIN: '150sec'
