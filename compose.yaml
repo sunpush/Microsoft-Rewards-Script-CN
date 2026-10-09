@@ -49,22 +49,6 @@ services:
             CONFIG_SEARCH_DELAY_MAX: '10min'
             CONFIG_SEARCH_READ_DELAY_MIN: '100sec'
             CONFIG_SEARCH_READ_DELAY_MAX: '10min'
-
-            # Continue even if Microsoft reports Fraud_UserWarning_BotScore_UX (not recommended).
-            #CONFIG_CONTINTUE_ON_BOT_WARNING: 'false'
-            # Block browser image/video/audio requests to reduce transferred media bytes.
-            #CONFIG_EXPERIMENTAL_BLOCK_MEDIA: 'false'
-            # Report the Edge browsing streak in the background (experimental).
-            #CONFIG_EXPERIMENTAL_EDGE_BROWSING: 'false'
-            # Only enable for a TLS-intercepting proxy whose certificate cannot be trusted normally.
-            #CONFIG_PROXY_IGNORE_CERTIFICATE_ERRORS: 'false'
-            #... add additional configuration overrides as needed
-
-        # ── API mode port mapping ──────────────────────────────────────
-        # Uncomment when API_MODE=true
-        #ports:
-        #    - '3010:3010'
-
         healthcheck:
             test: ['CMD-SHELL', 'scripts/docker/healthcheck.sh']
             interval: 60s
