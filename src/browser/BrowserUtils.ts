@@ -65,7 +65,7 @@ export default class BrowserUtils {
                         button &&
                         (await this.click(page, button.selector, { timeout: browserTimeout(this.bot, 'optional') }))
                     ) {
-                        this.bot.logger.debug(this.bot.isMobile, 'DISMISS-ALL-MESSAGES', `Dismissed: ${button.label}`)
+                        this.bot.logger.debug(this.bot.isMobile, 'DISMISS-ALL-MESSAGES', `已关闭：${button.label}`)
                     }
                 }
                 await this.bot.utils.wait(300)
@@ -78,7 +78,7 @@ export default class BrowserUtils {
             this.bot.logger.warn(
                 this.bot.isMobile,
                 'DISMISS-ALL-MESSAGES',
-                `Handler error: ${error instanceof Error ? error.message : String(error)}`
+                `处理器出错：${error instanceof Error ? error.message : String(error)}`
             )
         }
     }
@@ -106,7 +106,7 @@ export default class BrowserUtils {
                     this.bot.logger.debug(
                         this.bot.isMobile,
                         'DISMISS-ALL-MESSAGES',
-                        'Dismissed: Rewards welcome dialog'
+                        '已关闭：Rewards 欢迎弹窗'
                     )
                     return true
                 }
@@ -115,7 +115,7 @@ export default class BrowserUtils {
                 this.bot.logger.debug(
                     this.bot.isMobile,
                     'DISMISS-ALL-MESSAGES',
-                    `Rewards welcome dismissal failed | attempt=${attempt}/2 | ${error instanceof Error ? error.message : String(error)}`
+                    `关闭 Rewards 欢迎弹窗失败 | attempt=${attempt}/2 | ${error instanceof Error ? error.message : String(error)}`
                 )
             }
             if (page.isClosed()) return false
@@ -124,7 +124,7 @@ export default class BrowserUtils {
         this.bot.logger.warn(
             this.bot.isMobile,
             'DISMISS-ALL-MESSAGES',
-            'Rewards welcome dialog remained visible after two dismissal attempts'
+            '两次尝试关闭 Rewards 欢迎弹窗后仍然可见'
         )
         return false
     }
@@ -166,7 +166,7 @@ export default class BrowserUtils {
                     this.bot.logger.debug(
                         this.bot.isMobile,
                         'DISMISS-ALL-MESSAGES',
-                        `Dismissed: cookie consent banner (${rejected ? 'Reject' : 'Accept'})`
+                        `已关闭：Cookie 同意横幅 (${rejected ? 'Reject' : 'Accept'})`
                     )
                     if (
                         !(await banners
@@ -181,14 +181,14 @@ export default class BrowserUtils {
             this.bot.logger.warn(
                 this.bot.isMobile,
                 'DISMISS-ALL-MESSAGES',
-                'Cookie consent banner remained visible after two dismissal attempts; page controls may be covered'
+                '两次尝试关闭 Cookie 同意横幅后仍然可见；页面控件可能被遮挡'
             )
         } catch (error) {
             this.bot.signal.throwIfAborted()
             this.bot.logger.warn(
                 this.bot.isMobile,
                 'DISMISS-ALL-MESSAGES',
-                `Could not dismiss cookie consent | error=${error instanceof Error ? error.message : String(error)}`
+                `无法关闭 Cookie 同意提示 | error=${error instanceof Error ? error.message : String(error)}`
             )
         }
         return false
@@ -206,7 +206,7 @@ export default class BrowserUtils {
         if (!(await reject.isVisible().catch(() => false))) return
         await ghostClick(page, reject, browserTimeout(this.bot), this.bot.signal)
         await banner.waitFor({ state: 'hidden', timeout: browserTimeout(this.bot) })
-        this.bot.logger.debug(this.bot.isMobile, 'DISMISS-ALL-MESSAGES', 'Dismissed: MSN privacy banner (Reject All)')
+        this.bot.logger.debug(this.bot.isMobile, 'DISMISS-ALL-MESSAGES', '已关闭：MSN 隐私横幅（全部拒绝）')
     }
 
     async reloadNetworkError(page: Page): Promise<boolean> {
@@ -215,7 +215,7 @@ export default class BrowserUtils {
             const isBadPage = /<body[^>]*\bclass=["'][^"']*\bneterror\b/i.test(html)
 
             if (isBadPage) {
-                this.bot.logger.info(this.bot.isMobile, 'RELOAD-BAD-PAGE', 'Bad page detected, reloading!')
+                this.bot.logger.info(this.bot.isMobile, 'RELOAD-BAD-PAGE', '检测到错误页面，正在重新加载！')
                 try {
                     await page.reload({ waitUntil: 'load' })
                 } catch {
@@ -229,7 +229,7 @@ export default class BrowserUtils {
             this.bot.logger.error(
                 this.bot.isMobile,
                 'RELOAD-BAD-PAGE',
-                `Reload check failed: ${error instanceof Error ? error.message : String(error)}`
+                `重新加载检查失败：${error instanceof Error ? error.message : String(error)}`
             )
             return true
         }
@@ -244,7 +244,7 @@ export default class BrowserUtils {
             this.bot.logger.debug(
                 this.bot.isMobile,
                 'CLICK',
-                `Failed for ${selector}: ${error instanceof Error ? error.message : String(error)}`
+                `点击失败 ${selector}：${error instanceof Error ? error.message : String(error)}`
             )
             return false
         }
@@ -264,7 +264,7 @@ export default class BrowserUtils {
                 this.bot.logger.debug(
                     this.bot.isMobile,
                     'DISABLE-FIDO',
-                    `Modified request body: isFidoSupported set to ${body.isFidoSupported}`
+                    `已修改请求体：isFidoSupported 设为 ${body.isFidoSupported}`
                 )
 
                 await route.continue({
@@ -278,7 +278,7 @@ export default class BrowserUtils {
                 this.bot.logger.debug(
                     this.bot.isMobile,
                     'DISABLE-FIDO',
-                    `An error occurred: ${error instanceof Error ? error.message : String(error)}`
+                    `发生错误：${error instanceof Error ? error.message : String(error)}`
                 )
                 await route.continue()
             }
