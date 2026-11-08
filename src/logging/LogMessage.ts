@@ -89,5 +89,5 @@ export function formatActivityResult(activity: string, result: ActivityResult): 
     const genericReason = ['offer-not-confirmed', 'offer-not-complete', 'quota-incomplete'].includes(result.reason)
     const reason =
         result.status === 'confirmed' || (genericReason && !result.message) ? '' : ` | ${activityReason(result)}`
-    return `${label} | ${outcome} | points earned: ${result.pointsKnown === false ? 'unverified' : result.pointsGained}${reason}`
+    return `${label} | ${outcome} | 获得积分: ${result.pointsKnown === false ? 'unverified' : result.pointsGained}${reason}`
 }
