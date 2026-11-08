@@ -1,27 +1,27 @@
 services:
-    microsoft-rewards-script:
+    ms_rewards:
         build:
             context: .
-        image: microsoft-rewards-script:local
-        container_name: microsoft-rewards-script
+        image: ms_rewards:5.0.0
+        container_name: ms_rewards_app_${NO}
         restart: unless-stopped
         stop_grace_period: 60s
         volumes:
-            - ./config:/usr/src/microsoft-rewards-script/config
-            - ./diagnostics:/usr/src/microsoft-rewards-script/diagnostics
-            - ./sessions:/usr/src/microsoft-rewards-script/sessions
+            - ./config_${NO}:/usr/src/microsoft-rewards-script/config
+            - ./diagnostics_${NO}:/usr/src/microsoft-rewards-script/diagnostics
+            - ./sessions_${NO}:/usr/src/microsoft-rewards-script/sessions
         env_file:
             # Load account credentials from the .env file (ACCOUNT_1_EMAIL, optional ACCOUNT_1_PASSWORD, etc.)
             - path: .env
         environment:
             # ── Scheduler ──────────────────────────────────────
-            TZ: 'America/Toronto'
+            TZ: ${TZ}
             NODE_ENV: 'production'
             # CRON_SCHEDULE is the *initial* default. It will run as default unless changed by the API
             # API schedule changes are saved to ./config/schedule.json, delete
             # that file to revert to the base CRON_SCHEDULE again.
-            CRON_SCHEDULE: '0 7 * * *' # use crontab.guru to customize your schedule
-            RUN_ON_START: 'true' # run script immediately on container start
+            CRON_SCHEDULE: ${CRON_SCHEDULE} # use crontab.guru to customize your schedule
+            RUN_ON_START: ${RUN_ON_START} # run script immediately on container start
             SKIP_RANDOM_SLEEP: 'false'
             #MIN_SLEEP_MINUTES: "5"
             #MAX_SLEEP_MINUTES: "50"
@@ -54,6 +54,13 @@ services:
             # Only enable for a TLS-intercepting proxy whose certificate cannot be trusted normally.
             #CONFIG_PROXY_IGNORE_CERTIFICATE_ERRORS: 'false'
             #... add additional configuration overrides as needed
+            CONFIG_SEARCH_DELAY_MIN: '2min'
+            CONFIG_SEARCH_DELAY_MAX: '5min'
+            CONFIG_SEARCH_READ_DELAY_MIN: '2min'
+            CONFIG_SEARCH_READ_DELAY_MAX: '5min'
+            CONFIG_SEARCH_SCROLL_RANDOM: 'true'
+            CONFIG_SEARCH_CLICK_RANDOM: 'true'
+            CONFIG_SEARCH_VISIT_TIME: '30sec'
 
         # ── Control API port mapping ──────────────────────────────
         # Uncomment when API_MODE=true
