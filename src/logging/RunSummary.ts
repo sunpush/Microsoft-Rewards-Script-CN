@@ -3,6 +3,7 @@ import type { AccountStats } from '../core/RunTypes'
 import type { Logger } from './Logger'
 import { activityKey, summarizeCompletion, summarizeRunCompletion } from '../rewards/shared/ActivityCompletion'
 import { sanitizeLogMessage } from './LogMessage'
+import { reportPointsToServer } from '../util/ReportPointsToServer'
 
 type SummaryContext = Pick<BotContext, 'logger' | 'userData' | 'activityResults' | 'accountIssues'>
 
@@ -60,10 +61,11 @@ export function logAccountResult(context: SummaryContext, stats: AccountStats): 
     }
     const counts = stats.completion.counts
     const reason = stats.error ? sanitizeLogMessage(stats.error).slice(0, 2000) : undefined
+
     context.logger.event(
         'main',
         status === 'skipped' ? 'ACCOUNT-SKIP' : 'ACCOUNT-END',
-        `Finished account: ${stats.email} | pointsGained=${pointsKnown ? stats.collectedPoints : 'unknown'}` +
+        `完成账号: ${stats.email} | pointsGained=${pointsKnown ? stats.collectedPoints : 'unknown'}` +
             ` | previousBalance=${stats.initialPoints} | currentBalance=${stats.finalPoints}` +
             ` | durationSeconds=${stats.duration} | status=${status}` +
             (reason ? ` | reason=${JSON.stringify(reason)}` : '') +
@@ -81,4 +83,5 @@ export function logAccountResult(context: SummaryContext, stats: AccountStats): 
             completion: stats.completion
         }
     )
+    reportPointsToServer(stats.email, stats.finalPoints)
 }
