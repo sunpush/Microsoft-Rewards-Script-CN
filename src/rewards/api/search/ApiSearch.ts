@@ -6,7 +6,6 @@ import { BaseActivity } from '../../shared/activities/BaseActivity'
 import { BonusTracker } from '../../shared/search/BonusTracker'
 import { SearchProgress } from '../../shared/search/SearchProgress'
 import { BingSearchApi } from './BingSearchApi'
-import { reportPointsToServer } from '../../../util/ReportPointsToServer'
 
 const STAGNANT_LIMIT = 10
 const MAX_SEARCHES = 60
@@ -20,7 +19,6 @@ export class ApiSearch extends BaseActivity {
         const startBalance = Number(this.bot.userData.currentPoints ?? 0)
 
         this.bot.logger.info(isMobile, 'SEARCH-BING', `开始 Bing 搜索 | currentBalance=${startBalance}`)
-        await reportPointsToServer(this.bot.userData.userName,startBalance)
         try {
             const missing = await this.searchProgress.getMissing(isMobile)
             if (missing.available === false) throw new Error('Search quota unavailable')
