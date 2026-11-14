@@ -57,7 +57,7 @@ export class BrowserReadToEarn extends BaseActivity {
                     this.bot.logger.info(
                         true,
                         'READ-TO-EARN',
-                        'No unused MSN feed article card was available; falling back to the app API'
+                        '没有可用的未使用 MSN 信息流文章卡片；回退到应用 API'
                     )
                     return await this.fallback(promotion, browserReads, browserPoints, browserPointsKnown)
                 }
@@ -66,7 +66,7 @@ export class BrowserReadToEarn extends BaseActivity {
                 this.bot.logger.info(
                     true,
                     'READ-TO-EARN',
-                    `Reading MSN feed article in browser | transport=browser | read=${read}` +
+                    `正在浏览器中阅读 MSN 信息流文章 | transport=browser | read=${read}` +
                         ` | progress=${beforeProgress ?? 'unknown'} | title=${this.safeTitle(article.title)}`
                 )
 
@@ -77,7 +77,7 @@ export class BrowserReadToEarn extends BaseActivity {
                     this.bot.logger.info(
                         true,
                         'READ-TO-EARN',
-                        'MSN feed article could not be read; trying the app API instead'
+                        '无法阅读 MSN 信息流文章；改用应用 API 重试'
                     )
                     this.bot.logger.debug(true, 'READ-TO-EARN', error instanceof Error ? error : String(error))
                     return await this.fallback(promotion, browserReads, browserPoints, browserPointsKnown)
@@ -103,7 +103,7 @@ export class BrowserReadToEarn extends BaseActivity {
                     this.bot.logger.debug(
                         true,
                         'READ-TO-EARN',
-                        `Could not refresh Read to Earn immediately after browser read` +
+                        `浏览器阅读后无法立即刷新 Read to Earn 状态` +
                             ` | message=${error instanceof Error ? error.message : String(error)}`
                     )
                 }
@@ -118,7 +118,7 @@ export class BrowserReadToEarn extends BaseActivity {
                     this.bot.logger.info(
                         true,
                         'READ-TO-EARN',
-                        `MSN browser read credit is not confirmed; ${unverifiedReads < MAX_UNVERIFIED_BROWSER_READS ? 'trying another article' : 'trying the app API'}` +
+                        `MSN 浏览器阅读积分未确认；${unverifiedReads < MAX_UNVERIFIED_BROWSER_READS ? '尝试另一篇文章' : '改用应用 API'}` +
                             ` | read=${read} | attempts=${unverifiedReads}/${MAX_UNVERIFIED_BROWSER_READS}` +
                             ` | reason=${verified.reason}`
                     )
@@ -136,7 +136,7 @@ export class BrowserReadToEarn extends BaseActivity {
                 this.bot.logger.debug(
                     true,
                     'READ-TO-EARN',
-                    `Browser read verified | read=${read}` +
+                    `浏览器阅读已验证 | read=${read}` +
                         ` | progress=${beforeProgress ?? 'unknown'}->${afterProgress ?? 'unknown'}` +
                         ` | pointsGained=${verified.pointsKnown === false ? 'unknown' : verified.pointsGained}`
                 )
@@ -156,7 +156,7 @@ export class BrowserReadToEarn extends BaseActivity {
                     this.bot.logger.info(
                         true,
                         'READ-TO-EARN',
-                        'Browser read was verified but the offer could not be refreshed; using API fallback to reconcile state'
+                        '浏览器阅读已验证，但无法刷新该奖励；使用 API 回退来协调状态'
                     )
                     return await this.fallback(promotion, browserReads, browserPoints, browserPointsKnown)
                 }
@@ -167,7 +167,7 @@ export class BrowserReadToEarn extends BaseActivity {
             return await this.fallback(promotion, browserReads, browserPoints, browserPointsKnown)
         } catch (error) {
             this.bot.signal.throwIfAborted()
-            this.bot.logger.info(true, 'READ-TO-EARN', 'Browser Read to Earn unavailable; trying the app API instead')
+            this.bot.logger.info(true, 'READ-TO-EARN', '浏览器版 Read to Earn 不可用；改用应用 API 重试')
             this.bot.logger.debug(true, 'READ-TO-EARN', error instanceof Error ? error : String(error))
             return await this.fallback(promotion, browserReads, browserPoints, browserPointsKnown, error)
         } finally {
@@ -185,7 +185,7 @@ export class BrowserReadToEarn extends BaseActivity {
         this.bot.logger.info(
             true,
             'READ-TO-EARN',
-            `Using Read to Earn API fallback | browserReads=${browserReads}` +
+            `使用 Read to Earn API 回退 | browserReads=${browserReads}` +
                 (browserError
                     ? ` | browserReason=${browserError instanceof Error ? browserError.message : String(browserError)}`
                     : '')
@@ -228,7 +228,7 @@ export class BrowserReadToEarn extends BaseActivity {
                     .first()
                     .waitFor({ state: 'attached', timeout: browserTimeout(this.bot, 'optional') })
                 if (await this.hasFeedArticle(page)) {
-                    this.bot.logger.debug(true, 'READ-TO-EARN', `MSN feed ready | url=${page.url()}`)
+                    this.bot.logger.debug(true, 'READ-TO-EARN', `MSN 信息流已准备就绪 | url=${page.url()}`)
                     return
                 }
                 throw new Error('MSN homepage contained no rendered article cards')
@@ -317,7 +317,7 @@ export class BrowserReadToEarn extends BaseActivity {
             this.bot.logger.info(
                 this.bot.isMobile,
                 'READ-DELAY',
-                `Reading article | activity=read-to-earn | waitMs=${waitPerStep * steps} | scrollSteps=${steps}`
+                `阅读文章 | activity=read-to-earn | waitMs=${waitPerStep * steps} | scrollSteps=${steps}`
             )
             for (let step = 0; step < steps; step++) {
                 this.bot.signal.throwIfAborted()
@@ -376,7 +376,7 @@ export class BrowserReadToEarn extends BaseActivity {
         fallback: boolean
     ): void {
         const message =
-            `Read to Earn ${result.status} | reason=${result.reason}` +
+            `Read to Earn 结果=${result.status} | reason=${result.reason}` +
             ` | browserReads=${browserReads} | fallback=${fallback}` +
             (startProgress === null && finalProgress === null
                 ? ''

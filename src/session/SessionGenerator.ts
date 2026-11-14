@@ -22,7 +22,7 @@ export class SessionGenerator {
         this.bot.logger.info(
             'main',
             'SESSIONS-START',
-            `Creating login sessions | accounts=${accounts.length} | platforms=${platforms.join(',')} | fresh=${options.fresh}`
+            `正在创建登录会话 | accounts=${accounts.length} | platforms=${platforms.join(',')} | fresh=${options.fresh}`
         )
 
         for (const account of accounts) {
@@ -73,7 +73,7 @@ export class SessionGenerator {
         this.bot.logger[failed ? 'warn' : 'success'](
             'main',
             'SESSIONS-END',
-            `Session creation finished | saved=${completed} | failed=${failed}`
+            `会话创建完成 | saved=${completed} | failed=${failed}`
         )
         return { completed, failed }
     }
@@ -86,10 +86,10 @@ export class SessionGenerator {
     ): void {
         const message =
             status === 'running'
-                ? `Signing in ${email} (${platform})`
+                ? `正在登录 ${email} (${platform})`
                 : status === 'completed'
-                  ? `Saved ${platform} session for ${email}`
-                  : `${platform} session ${status} for ${email}${reason ? ` | ${reason}` : ''}`
+                  ? `已保存 ${platform} 会话用于 ${email}`
+                  : `${platform} 会话 ${status} ${email}${reason ? ` | ${reason}` : ''}`
         this.bot.logger.event(platform === 'mobile', 'SESSION-GENERATION', message, {
             kind: 'session',
             email,

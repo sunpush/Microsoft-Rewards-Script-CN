@@ -29,7 +29,7 @@ export class ApiReadToEarn extends BaseActivity {
         this.bot.logger.info(
             this.bot.isMobile,
             'READ-TO-EARN',
-            `Starting Read to Earn | transport=api | offerId=${offerId}` +
+            `开始 Read to Earn | transport=api | offerId=${offerId}` +
                 ` | progress=${startProgress ?? 'unknown'}/${pointMax ?? 'unknown'}` +
                 ` | currentBalance=${currentBalance}`
         )
@@ -56,7 +56,7 @@ export class ApiReadToEarn extends BaseActivity {
                 this.bot.logger.info(
                     this.bot.isMobile,
                     'READ-TO-EARN',
-                    `Read report request failed; checking whether Microsoft still credited it` + ` | report=${report}`
+                    `阅读上报请求失败；正在检查 Microsoft 是否仍已记入积分` + ` | report=${report}`
                 )
                 this.bot.logger.debug(this.bot.isMobile, 'READ-TO-EARN', error instanceof Error ? error : String(error))
             }
@@ -82,7 +82,7 @@ export class ApiReadToEarn extends BaseActivity {
                 this.bot.logger.debug(
                     this.bot.isMobile,
                     'READ-TO-EARN',
-                    `Read to Earn refresh unavailable | report=${report}` +
+                    `Read to Earn 刷新不可用 | report=${report}` +
                         ` | message=${error instanceof Error ? error.message : String(error)}`
                 )
             }
@@ -116,7 +116,7 @@ export class ApiReadToEarn extends BaseActivity {
             this.bot.logger.debug(
                 this.bot.isMobile,
                 'READ-TO-EARN',
-                `Read report processed | report=${report}` +
+                `阅读上报已处理 | report=${report}` +
                     ` | status=${verified.status} | reason=${verified.reason}` +
                     ` | progress=${beforeProgress ?? 'unknown'}->${afterProgress ?? 'unknown'}` +
                     ` | previousBalance=${beforeBalance} | currentBalance=${currentBalance}` +
@@ -168,7 +168,7 @@ export class ApiReadToEarn extends BaseActivity {
                 this.bot.logger.info(
                     this.bot.isMobile,
                     'READ-DELAY',
-                    `Waiting before next read report | activity=read-to-earn | report=${report} | waitMs=${delay}`
+                    `等待后再进行下一次阅读上报 | activity=read-to-earn | report=${report} | waitMs=${delay}`
                 )
                 await this.bot.utils.wait(delay)
             }
@@ -193,7 +193,7 @@ export class ApiReadToEarn extends BaseActivity {
         finalProgress: number | null
     ): void {
         const message =
-            `Read to Earn ${result.status} | reason=${result.reason}` +
+            `Read to Earn 结果=${result.status} | reason=${result.reason}` +
             ` | reportsAccepted=${reportsAccepted}` +
             ` | progress=${startProgress ?? 'unknown'}->${finalProgress ?? 'unknown'}` +
             ` | pointsGained=${result.pointsKnown === false ? 'unknown' : result.pointsGained}`

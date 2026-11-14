@@ -40,14 +40,14 @@ export async function runSearchOnBingQueries(
         bot.logger.debug(
             bot.isMobile,
             'SEARCH-ON-BING',
-            `No unused Explore on Bing attempts remain | attempts=${attempted.size}/${limit} | offerId=${offerId}`
+            `没有剩余的 Explore on Bing 尝试次数 | attempts=${attempted.size}/${limit} | offerId=${offerId}`
         )
         return false
     }
     bot.logger.debug(
         bot.isMobile,
         'SEARCH-ON-BING-SEARCH',
-        `Starting search loop | queriesCount=${queries.length} | attemptsUsed=${attempted.size} | maxAttempts=${limit}` +
+        `开始搜索循环 | queriesCount=${queries.length} | attemptsUsed=${attempted.size} | maxAttempts=${limit}` +
             ` | targetPoints=${promotion.pointProgressMax} | currentBalance=${oldBalance}`
     )
 
@@ -61,7 +61,7 @@ export async function runSearchOnBingQueries(
             bot.logger.info(
                 bot.isMobile,
                 'SEARCH-ON-BING',
-                `Searching Explore on Bing | search=${attempted.size}/${limit} | query=${JSON.stringify(query)}`
+                `正在搜索 Explore on Bing | search=${attempted.size}/${limit} | query=${JSON.stringify(query)}`
             )
             const progress = await operations.search(query)
             if (!progress) continue
@@ -72,7 +72,7 @@ export async function runSearchOnBingQueries(
             bot.logger.debug(
                 bot.isMobile,
                 'SEARCH-ON-BING-SEARCH',
-                `Progress check | query="${query}" | offerProgress=${offerProgress} | offerComplete=${offerComplete} | currentBalance=${balance}`
+                `进度检查 | query="${query}" | offerProgress=${offerProgress} | offerComplete=${offerComplete} | currentBalance=${balance}`
             )
             if (offerComplete) {
                 operations.confirm?.()
@@ -80,21 +80,21 @@ export async function runSearchOnBingQueries(
                 bot.logger.debug(
                     bot.isMobile,
                     'SEARCH-ON-BING-SEARCH',
-                    `SearchOnBing activity completed | currentBalance=${balance} | query="${query}" | offerProgress=${offerProgress}`
+                    `SearchOnBing 活动已完成 | currentBalance=${balance} | query="${query}" | offerProgress=${offerProgress}`
                 )
                 return true
             }
             bot.logger.debug(
                 bot.isMobile,
                 'SEARCH-ON-BING-SEARCH',
-                `${index + 1}/${queries.length} | activity not complete | offerProgress=${offerProgress} | query="${query}"`
+                `${index + 1}/${queries.length} | 活动未完成 | offerProgress=${offerProgress} | query="${query}"`
             )
         } catch (error) {
             bot.signal.throwIfAborted()
             bot.logger.error(
                 bot.isMobile,
                 'SEARCH-ON-BING-SEARCH',
-                `Error during search loop | query="${query}" | message=${error instanceof Error ? error.message : String(error)}`
+                `搜索循环期间出错 | query="${query}" | message=${error instanceof Error ? error.message : String(error)}`
             )
         } finally {
             if (!completed && index < queries.length - 1 && attempted.size < limit) {
@@ -105,14 +105,14 @@ export async function runSearchOnBingQueries(
     bot.logger.debug(
         bot.isMobile,
         'SEARCH-ON-BING-SEARCH',
-        `Finished search attempts without completing the activity | queriesTried=${attempted.size} | maxAttempts=${limit}` +
+        `搜索尝试已结束，但活动未完成 | queriesTried=${attempted.size} | maxAttempts=${limit}` +
             ` | offerId=${offerId} | currentBalance=${bot.userData.currentPoints} | previousBalance=${oldBalance}`
     )
     if (attempted.size >= limit) {
         bot.logger.warn(
             bot.isMobile,
             'SEARCH-ON-BING',
-            `Explore on Bing remains incomplete after ${attempted.size}/${limit} attempts; leaving it for the next run` +
+            `Explore on Bing 在 ${attempted.size}/${limit} 次尝试后仍未完成；留待下次运行` +
                 ` | title=${JSON.stringify(promotion.title)}`
         )
     }

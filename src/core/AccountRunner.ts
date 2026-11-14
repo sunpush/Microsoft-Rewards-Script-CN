@@ -17,7 +17,7 @@ export class AccountRunner {
 
     async run(account: Account): Promise<AccountRunResult> {
         const accountEmail = account.email
-        this.bot.logger.debug('main', 'FLOW', `Starting session for ${accountEmail}`)
+        this.bot.logger.debug('main', 'FLOW', `开始账户会话：${accountEmail}`)
 
         this.bot.cancellation?.signal.throwIfAborted()
         this.bot.accountState.reset()
@@ -38,7 +38,7 @@ export class AccountRunner {
                 this.bot.logger.debug(
                     'main',
                     'FLOW',
-                    `Desktop signed in; session saved | rewardsMode=${this.bot.config.rewardsMode}`
+                    `桌面端登录完成，会话已保存 | rewardsMode=${this.bot.config.rewardsMode}`
                 )
 
                 const workflow = this.createWorkflow(this.bot)
@@ -48,7 +48,7 @@ export class AccountRunner {
                 this.bot.logger.debug(
                     'main',
                     'GET-DASHBOARD-DATA',
-                    `User data loaded | source=${data.sourceInfo.source} | rewardsMode=${this.bot.config.rewardsMode}` +
+                    `用户数据已加载 | source=${data.sourceInfo.source} | rewardsMode=${this.bot.config.rewardsMode}` +
                         ` | currentBalance=${data.dashboard.userStatus.availablePoints}` +
                         ` | warnings=${data.dashboard.userWarnings.map(warning => warning.name).join(',') || (data.sourceInfo.missingSections.includes('userWarnings') ? 'unavailable' : 'none')}`
                 )
@@ -65,7 +65,7 @@ export class AccountRunner {
                         this.bot.logger.warn(
                             'main',
                             'GEO-LOCALE',
-                            `Microsoft profile returned an invalid country; retaining ${
+                            `Microsoft 账户资料返回了无效的国家/地区；保留 ${
                                 this.bot.accountLocale.country ?? 'US fallback'
                             }`
                         )

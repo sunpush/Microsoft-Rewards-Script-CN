@@ -55,7 +55,7 @@ export class AccountData implements AccountDataSource {
                 this.bot.logger.warn(
                     this.bot.isMobile,
                     'GET-DASHBOARD-DATA',
-                    `User data source unavailable | via=${via} | path=${new URL(url).pathname}` +
+                    `用户数据源不可用 | via=${via} | path=${new URL(url).pathname}` +
                         ` | attempt=${index + 1}/${attempts.length} | elapsedMs=${Date.now() - started}` +
                         ` | remainingMs=${Math.max(0, deadline - Date.now())} | message=${this.errorMessage(error)}`
                 )
@@ -63,7 +63,7 @@ export class AccountData implements AccountDataSource {
         }
 
         const message = `Rewards user data unavailable | ${failures.join(' | ')}`
-        this.bot.logger.error(this.bot.isMobile, 'GET-DASHBOARD-DATA', message)
+        this.bot.logger.error(this.bot.isMobile, 'GET-DASHBOARD-DATA', `用户数据不可用 | ${message}`)
         throw new AggregateError(errors, message)
     }
 
@@ -139,7 +139,7 @@ export class AccountData implements AccountDataSource {
         this.bot.logger.event(
             this.bot.isMobile,
             'ACCOUNT-INFO',
-            `Account information observed | level=${data.account.level} | pointsProgress=${data.account.pointsProgress}` +
+            `账户信息已观察 | level=${data.account.level} | pointsProgress=${data.account.pointsProgress}` +
                 ` | pointsRemaining=${data.account.pointsRemaining} | lifetimeEarn=${data.account.lifetimeEarn}`,
             {
                 kind: 'account-info',
@@ -150,7 +150,7 @@ export class AccountData implements AccountDataSource {
         this.bot.logger.event(
             this.bot.isMobile,
             'ACCOUNT-BALANCE',
-            `Account balance observed | currentBalance=${data.dashboard.userStatus.availablePoints} | initialPoints=${this.bot.userData.initialPoints}`,
+            `账户余额已观察 | currentBalance=${data.dashboard.userStatus.availablePoints} | initialPoints=${this.bot.userData.initialPoints}`,
             {
                 kind: 'balance',
                 currentBalance: data.dashboard.userStatus.availablePoints,
@@ -161,7 +161,7 @@ export class AccountData implements AccountDataSource {
         this.bot.logger.debug(
             this.bot.isMobile,
             'GET-DASHBOARD-DATA',
-            `User data received | source=${data.sourceInfo.source} | via=${response.via} | session=${this.bot.isMobile ? 'mobile' : 'desktop'}` +
+            `已接收用户数据 | source=${data.sourceInfo.source} | via=${response.via} | session=${this.bot.isMobile ? 'mobile' : 'desktop'}` +
                 ` | currentBalance=${data.dashboard.userStatus.availablePoints}` +
                 ` | warnings=${data.dashboard.userWarnings.map(warning => warning.name).join(',') || (missingWarnings ? 'unavailable' : 'none')}`
         )
@@ -176,10 +176,10 @@ export class AccountData implements AccountDataSource {
             ) || /<title\b[^>]*>\s*Sign in to Microsoft(?: Rewards| account)?\s*<\/title>/i.test(data)
         if (isSignIn) {
             throw new Error(
-                'Microsoft sign-in HTML returned instead of user data JSON; the request has no authenticated Rewards session'
+                '返回的是 Microsoft 登录 HTML 而非用户数据 JSON；请求没有经过身份验证的 Rewards 会话'
             )
         }
-        throw new Error(`User data request returned text or HTML instead of JSON | status=${status}`)
+        throw new Error(`用户数据请求返回了文本或 HTML 而非 JSON | status=${status}`)
     }
 
     private errorMessage(error: unknown): string {
@@ -219,7 +219,7 @@ export class AccountData implements AccountDataSource {
             this.bot.logger.debug(
                 this.bot.isMobile,
                 'EARN-SNAPSHOT',
-                `Failed to fetch ${route} over http | ${error instanceof Error ? error.message : String(error)}`
+                `通过 HTTP 获取 ${route} 失败 | ${error instanceof Error ? error.message : String(error)}`
             )
             return null
         }

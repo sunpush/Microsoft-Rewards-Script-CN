@@ -111,7 +111,7 @@ export class SearchManager {
                 this.bot.logger.error(
                     'main',
                     'SEARCH-MANAGER',
-                    `${platform} search failed | ${error instanceof Error ? error.message : String(error)}`
+                    `${platform} 搜索失败 | ${error instanceof Error ? error.message : String(error)}`
                 )
                 return null
             }
@@ -119,7 +119,7 @@ export class SearchManager {
     }
 
     async bonusMobile(account: Account): Promise<number | null> {
-        this.bot.logger.info('main', 'SEARCH-MANAGER', 'Starting bonus searches')
+        this.bot.logger.info('main', 'SEARCH-MANAGER', '开始奖励搜索')
 
         const gained = await executionContext.run({ isMobile: true, account }, async () => {
             try {
@@ -130,7 +130,7 @@ export class SearchManager {
                 this.bot.logger.error(
                     'main',
                     'SEARCH-MANAGER',
-                    `Bonus search failed | ${error instanceof Error ? error.message : String(error)}`
+                    `奖励搜索失败 | ${error instanceof Error ? error.message : String(error)}`
                 )
                 return null
             }
@@ -139,7 +139,7 @@ export class SearchManager {
         this.bot.logger.debug(
             'main',
             'SEARCH-MANAGER',
-            `Bonus search summary | pointsGained=${gained ?? 'unknown'} | currentBalance=${this.bot.userData.currentPoints}`
+            `奖励搜索摘要 | pointsGained=${gained ?? 'unknown'} | currentBalance=${this.bot.userData.currentPoints}`
         )
         return gained
     }

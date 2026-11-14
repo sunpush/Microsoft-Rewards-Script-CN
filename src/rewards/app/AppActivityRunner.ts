@@ -31,13 +31,13 @@ export class AppActivityRunner {
                 this.bot.logger.warn(
                     this.bot.isMobile,
                     'LOGIN-APP',
-                    `App data unavailable; skipping app activities | ${error instanceof Error ? error.message : String(error)}`
+                    `应用数据不可用；跳过应用活动 | ${error instanceof Error ? error.message : String(error)}`
                 )
                 prepared.data = null
             }
         }
         if (!this.bot.accessTokens.mobile || !prepared.data) {
-            this.bot.logger.event('main', 'POINTS', 'App points unavailable', {
+            this.bot.logger.event('main', 'POINTS', '应用积分不可用', {
                 kind: 'quota',
                 app: null,
                 appState: 'unavailable'
@@ -50,7 +50,7 @@ export class AppActivityRunner {
         this.bot.logger.event(
             'main',
             'POINTS',
-            `App points available: ${prepared.earnable!.totalEarnablePoints ?? 'unknown'}`,
+            `可用应用积分：${prepared.earnable!.totalEarnablePoints ?? 'unknown'}`,
             {
                 kind: 'quota',
                 app: prepared.earnable!.totalEarnablePoints,
@@ -64,10 +64,10 @@ export class AppActivityRunner {
             promotion => appPromotionType(promotion) === 'msnreadearn'
         )
         if (workers.doDailyCheckIn && !prepared.dailyCheckIn) {
-            this.bot.logger.debug('main', 'DAILY-CHECK-IN', 'No Daily Check-In promotion is available; skipping')
+            this.bot.logger.debug('main', 'DAILY-CHECK-IN', '没有可用的每日签到推广；跳过')
         }
         if (workers.doReadToEarn && !prepared.readToEarn) {
-            this.bot.logger.debug('main', 'READ-TO-EARN', 'No Read to Earn promotion is available; skipping')
+            this.bot.logger.debug('main', 'READ-TO-EARN', '没有可用的 Read to Earn 推广；跳过')
         }
         return prepared
     }

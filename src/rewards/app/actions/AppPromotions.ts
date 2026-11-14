@@ -17,7 +17,7 @@ export class AppPromotions extends BaseActivity {
             this.bot.logger.debug(
                 this.bot.isMobile,
                 'APP-PROMOTIONS',
-                'No eligible pending App Promotions are available'
+                '没有可用的符合条件的待处理应用推广项目'
             )
             return
         }
@@ -25,11 +25,11 @@ export class AppPromotions extends BaseActivity {
         this.bot.logger.info(
             this.bot.isMobile,
             'APP-PROMOTIONS',
-            `Started solving "App Promotions" items | remaining=${pending.length}`
+            `开始处理“应用推广”项目 | remaining=${pending.length}`
         )
         for (const promotion of pending) {
             await this.bot.activities.runAppReward(promotion)
         }
-        this.bot.logger.debug(this.bot.isMobile, 'APP-PROMOTIONS', 'Finished processing "App Promotions" items')
+        this.bot.logger.debug(this.bot.isMobile, 'APP-PROMOTIONS', '“应用推广”项目处理完成')
     }
 }

@@ -126,13 +126,13 @@ export class ActionMetadata {
             this.bot.logger.debug(
                 this.bot.isMobile,
                 'REACT-PARSE',
-                `Extracted action ids | named=${Object.keys(byName).length} | total=${all.size}`
+                `已提取 action ID | named=${Object.keys(byName).length} | total=${all.size}`
             )
         } catch (error) {
             this.bot.logger.error(
                 this.bot.isMobile,
                 'REACT-PARSE',
-                `Failed extracting action ids | error=${error instanceof Error ? error.message : String(error)}`
+                `提取 action ID 失败 | error=${error instanceof Error ? error.message : String(error)}`
             )
         }
 

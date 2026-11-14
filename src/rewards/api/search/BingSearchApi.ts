@@ -48,7 +48,7 @@ export class BingSearchApi {
 
         const ig = this.readIg(searchResponse.data)
         if (!ig) {
-            this.bot.logger.warn(this.bot.isMobile, context, `No IG for "${query}" - SERP not served as expected`)
+            this.bot.logger.warn(this.bot.isMobile, context, `未找到 "${query}" 的 IG - SERP 未按预期提供`)
             return parseBingSearchReport(null)
         }
 
@@ -88,7 +88,7 @@ export class BingSearchApi {
         this.bot.logger.debug(
             this.bot.isMobile,
             context,
-            `Reported "${query}" | transport=node-http | ig=${ig} | sessionBalanceDelta=${report.sessionBalanceDelta ?? 'unknown'}` +
+            `已上报 "${query}" | transport=node-http | ig=${ig} | sessionBalanceDelta=${report.sessionBalanceDelta ?? 'unknown'}` +
                 (options.bcid ? ` | bcid=${options.bcid.slice(0, 12)}` : '') +
                 ` | currentBalance=${report.balance ?? 'n/a'}` +
                 ` | searchPts=${report.searchPointsEarned ?? 'n/a'}/${report.searchPointsLimit ?? 'n/a'}`

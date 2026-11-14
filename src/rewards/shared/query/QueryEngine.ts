@@ -33,7 +33,7 @@ export class QueryEngine {
         this.bot.logger.debug(
             this.bot.isMobile,
             'QUERY-MANAGER',
-            `Fetching main topics | localeMode=${locale.mode} | language=${language} | country=${country} | engines=${sourceOrder.join(',')}`
+            `正在获取主主题 | localeMode=${locale.mode} | language=${language} | country=${country} | engines=${sourceOrder.join(',')}`
         )
         const sourceHandlers: Record<QueryEngineName, () => Promise<QueryTopic[]> | QueryTopic[]> = {
             google: () => this.sources.getGoogleTrends(country, language),
@@ -59,14 +59,14 @@ export class QueryEngine {
                     this.bot.logger.debug(
                         this.bot.isMobile,
                         'QUERY-MANAGER',
-                        `Source results | engine=${source} | topics=${topics.length} | language=${language} | country=${country}`
+                        `源结果 | engine=${source} | topics=${topics.length} | language=${language} | country=${country}`
                     )
                     return topics
                 } catch (error) {
                     this.bot.logger.debug(
                         this.bot.isMobile,
                         'QUERY-MANAGER',
-                        `Source unavailable | engine=${source} | language=${language} | country=${country} | ${String(error)}`
+                        `源不可用 | engine=${source} | language=${language} | country=${country} | ${String(error)}`
                     )
                     return []
                 }
@@ -79,13 +79,13 @@ export class QueryEngine {
             this.bot.logger.warn(
                 this.bot.isMobile,
                 'QUERY-MANAGER',
-                `Selected sources returned no usable topics | fallback=local | topics=${topics.length} | language=${language} | country=${country}`
+                `选定的源返回了没有可用的主题 | 回退到本地 | topics=${topics.length} | language=${language} | country=${country}`
             )
         }
         this.bot.logger.debug(
             this.bot.isMobile,
             'QUERY-MANAGER',
-            `Topic pool ready | raw=${raw.length} | usable=${topics.length} | language=${language} | country=${country}`
+            `主题池已准备就绪 | raw=${raw.length} | usable=${topics.length} | language=${language} | country=${country}`
         )
         return orderTopics(topics, language, country, shuffle)
     }
@@ -102,7 +102,7 @@ export class QueryEngine {
             this.bot.logger.debug(
                 this.bot.isMobile,
                 'QUERY-MANAGER',
-                `Using cached topic pool | localeMode=${mode} | language=${langCode} | country=${geoLocale} | engines=${sourceOrder.join(',')}`
+                `使用缓存的主题池 | localeMode=${mode} | language=${langCode} | country=${geoLocale} | engines=${sourceOrder.join(',')}`
             )
         }
         const topics = await cache.topics
@@ -143,7 +143,7 @@ export class QueryEngine {
         this.bot.logger.debug(
             this.bot.isMobile,
             'QUERY-CLUSTER',
-            `Cluster ready | main=${JSON.stringify(main)} | topicSource=${mainTopic.source} | language=${language} | country=${country}` +
+            `集群已准备就绪 | main=${JSON.stringify(main)} | topicSource=${mainTopic.source} | language=${language} | country=${country}` +
                 ` | candidates=${lists.reduce((total, list) => total + list.length, 0)} | related=${selected.length} | queries=${JSON.stringify(cluster.map(query => ({ query: query.text, source: query.source })))}`
         )
         return cluster

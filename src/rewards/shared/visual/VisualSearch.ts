@@ -38,7 +38,7 @@ export class VisualSearch extends BaseActivity {
     private async execute(data: RewardsState): Promise<number | null> {
         if (this.bot.isMobile) {
             this.record(activityResult('skipped', 'mobile-not-applicable'))
-            this.bot.logger.debug(this.bot.isMobile, 'VISUAL-SEARCH', 'Skipping on mobile - desktop-only activity')
+            this.bot.logger.debug(this.bot.isMobile, 'VISUAL-SEARCH', '在移动端跳过 - 仅限桌面端活动')
             return 0
         }
 
@@ -50,7 +50,7 @@ export class VisualSearch extends BaseActivity {
             this.bot.logger.debug(
                 this.bot.isMobile,
                 'VISUAL-SEARCH',
-                `Already completed today | visualSearchStreak=${streak.completedDays}/${streak.totalDays}`
+                `今日已完成 | visualSearchStreak=${streak.completedDays}/${streak.totalDays}`
             )
             return 0
         }
@@ -89,7 +89,7 @@ export class VisualSearch extends BaseActivity {
             this.bot.logger.debug(
                 this.bot.isMobile,
                 'VISUAL-SEARCH',
-                'No visual-search streak in the snapshot - falling back to the activation offer'
+                '快照中没有视觉搜索连续签到 - 回退到激活奖励'
             )
             return
         }
@@ -97,14 +97,14 @@ export class VisualSearch extends BaseActivity {
         this.bot.logger.debug(
             this.bot.isMobile,
             'VISUAL-SEARCH',
-            `Streak state | partner="${streak.partner}" | enabled=${streak.isEnabled} | dayCompleted=${streak.isCurrentDayCompleted} | days=${streak.completedDays}/${streak.totalDays} | currentDay=${streak.currentDay} | activities=${streak.activitiesCompleted}/${streak.activitiesTotal} | dailyPoints=${JSON.stringify(streak.dailyPoints)}`
+            `连续签到状态 | partner="${streak.partner}" | enabled=${streak.isEnabled} | dayCompleted=${streak.isCurrentDayCompleted} | days=${streak.completedDays}/${streak.totalDays} | currentDay=${streak.currentDay} | activities=${streak.activitiesCompleted}/${streak.activitiesTotal} | dailyPoints=${JSON.stringify(streak.dailyPoints)}`
         )
 
         if (!streak.isEnabled) {
             this.bot.logger.info(
                 this.bot.isMobile,
                 'VISUAL-SEARCH',
-                'Streak is present but not enabled - searches will not register until it is switched on'
+                '连续签到存在但未启用 - 在开启之前搜索将不会被记录'
             )
         }
     }
@@ -168,7 +168,7 @@ export class VisualSearch extends BaseActivity {
             this.bot.logger.debug(
                 this.bot.isMobile,
                 'VISUAL-SEARCH',
-                `Could not verify activation state | offerId=${offerId} | ${error instanceof Error ? error.message : String(error)}`
+                `无法验证激活状态 | offerId=${offerId} | ${error instanceof Error ? error.message : String(error)}`
             )
             return null
         }
@@ -238,7 +238,7 @@ export class VisualSearch extends BaseActivity {
         this.bot.logger.info(
             this.bot.isMobile,
             'VISUAL-SEARCH',
-            `Starting daily Visual Search | maxAttempts=${this.attemptLimit} | maxAcquisitionFailuresPerAttempt=${this.acquisitionLimit}`
+            `开始每日视觉搜索 | maxAttempts=${this.attemptLimit} | maxAcquisitionFailuresPerAttempt=${this.acquisitionLimit}`
         )
 
         for (let attempt = 1; attempt <= this.attemptLimit; attempt++) {
@@ -249,7 +249,7 @@ export class VisualSearch extends BaseActivity {
                 this.bot.logger.success(
                     this.bot.isMobile,
                     'VISUAL-SEARCH',
-                    `Daily visual search registered before retry | attempt=${attempt}/${this.attemptLimit}`
+                    `每日视觉搜索在重试前已注册 | attempt=${attempt}/${this.attemptLimit}`
                 )
                 return null
             }
@@ -265,7 +265,7 @@ export class VisualSearch extends BaseActivity {
                 this.bot.logger.debug(
                     this.bot.isMobile,
                     'VISUAL-SEARCH',
-                    `Refreshed visual-search seed pool | attempt=${attempt}/${this.attemptLimit} | candidates=${candidateSeeds.length}`
+                    `已刷新视觉搜索种子池 | attempt=${attempt}/${this.attemptLimit} | candidates=${candidateSeeds.length}`
                 )
             }
 
@@ -341,7 +341,7 @@ export class VisualSearch extends BaseActivity {
                 this.bot.logger.debug(
                     this.bot.isMobile,
                     'VISUAL-SEARCH',
-                    `Daily visual search registered | pointsGained=${pointsGained ?? 'unknown'}` +
+                    `每日视觉搜索已注册 | pointsGained=${pointsGained ?? 'unknown'}` +
                         ` | currentBalance=${afterPoints?.dashboard.userStatus.availablePoints ?? 'unknown'}` +
                         ` | previousBalance=${beforePoints?.dashboard.userStatus.availablePoints ?? 'unknown'}` +
                         ` | balanceDelta=${balanceDelta ?? 'unknown'} | searchPoints=${searchPoints ?? 'unknown'}` +
@@ -356,13 +356,13 @@ export class VisualSearch extends BaseActivity {
                 this.bot.logger.warn(
                     this.bot.isMobile,
                     'VISUAL-SEARCH',
-                    `Visual search was reported but not credited (attempt ${attempt}/${this.attemptLimit}) | query="${visual.query}"`
+                    `视觉搜索已报告但未获得积分 (尝试 ${attempt}/${this.attemptLimit}) | query="${visual.query}"`
                 )
             } else {
                 this.bot.logger.warn(
                     this.bot.isMobile,
                     'VISUAL-SEARCH',
-                    `No reportActivity acknowledgement (attempt ${attempt}/${this.attemptLimit}) | query="${visual.query}"`
+                    `没有 reportActivity 确认 (尝试 ${attempt}/${this.attemptLimit}) | query="${visual.query}"`
                 )
             }
 
@@ -380,7 +380,7 @@ export class VisualSearch extends BaseActivity {
         this.bot.logger.warn(
             this.bot.isMobile,
             'VISUAL-SEARCH',
-            `status=unconfirmed | Daily visual search was not confirmed | searchesReported=${searchesReported}` +
+            `状态=未确认 | 每日视觉搜索未确认 | searchesReported=${searchesReported}` +
                 ` | candidatesRemaining=${candidateSeeds.length}`
         )
         return noSearchSubmitted ? 0 : null
@@ -404,7 +404,7 @@ export class VisualSearch extends BaseActivity {
                 this.bot.logger.warn(
                     this.bot.isMobile,
                     'VISUAL-SEARCH',
-                    `Could not obtain a visual search from one candidate (attempt ${attempt}/${this.attemptLimit})`
+                    `无法从候选者获取视觉搜索 (尝试 ${attempt}/${this.attemptLimit})`
                 )
                 acquisitionFailures++
                 if (acquisitionFailures >= this.acquisitionLimit) return null
@@ -419,7 +419,7 @@ export class VisualSearch extends BaseActivity {
             this.bot.logger.warn(
                 this.bot.isMobile,
                 'VISUAL-SEARCH',
-                `Skipping already-tried bcid=${visual.bcid.slice(0, 14)} | candidatesRemaining=${candidateSeeds.length}`
+                `跳过已尝试的 bcid=${visual.bcid.slice(0, 14)} | candidatesRemaining=${candidateSeeds.length}`
             )
             await this.bot.utils.wait(this.bot.utils.randomDelay(1000, 2000))
         }
@@ -427,7 +427,7 @@ export class VisualSearch extends BaseActivity {
         this.bot.logger.debug(
             this.bot.isMobile,
             'VISUAL-SEARCH',
-            `Visual-search seed pool exhausted for this attempt; it will be refreshed before retrying` +
+            `本次尝试的视觉搜索种子池已耗尽；重试前会刷新` +
                 ` | attempt=${attempt}/${this.attemptLimit}`
         )
         return null
@@ -464,7 +464,7 @@ export class VisualSearch extends BaseActivity {
             this.bot.logger.warn(
                 this.bot.isMobile,
                 'VISUAL-SEARCH',
-                `Streak verification unavailable | ${error instanceof Error ? error.message : String(error)}`
+                `连续签到验证不可用 | ${error instanceof Error ? error.message : String(error)}`
             )
             return undefined
         }
@@ -481,7 +481,7 @@ export class VisualSearch extends BaseActivity {
             this.bot.logger.warn(
                 this.bot.isMobile,
                 'VISUAL-SEARCH',
-                `Point verification unavailable | ${error instanceof Error ? error.message : String(error)}`
+                `积分验证不可用 | ${error instanceof Error ? error.message : String(error)}`
             )
             return null
         }

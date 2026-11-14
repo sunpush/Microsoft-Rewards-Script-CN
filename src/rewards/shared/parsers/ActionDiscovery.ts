@@ -91,7 +91,7 @@ export class ActionDiscovery {
                         this.bot.logger.debug(
                             this.bot.isMobile,
                             'ACTION-DISCOVERY',
-                            `Chunk unavailable | path=${path} | ${error instanceof Error ? error.message : String(error)}`
+                            `数据块不可用 | path=${path} | ${error instanceof Error ? error.message : String(error)}`
                         )
                     } finally {
                         reserved -= allowance
@@ -114,7 +114,7 @@ export class ActionDiscovery {
         this.bot.logger.debug(
             this.bot.isMobile,
             'ACTION-DISCOVERY',
-            `Discovery finished | build=${build || 'unknown'} | chunks=${visited.size} | bytes=${bytes}` +
+            `探索完成 | build=${build || 'unknown'} | chunks=${visited.size} | bytes=${bytes}` +
                 ` | bounded=${bounded} | unavailable=${unavailable} | complete=${complete} | actions=${Object.keys(result).length}`
         )
         return result

@@ -72,7 +72,7 @@ export class QuerySources {
         this.bot.logger.debug(
             this.bot.isMobile,
             'QUERY-SOURCE',
-            `Fetching query source | language=${requestLanguage} | country=${requestCountry} | ${formatQueryOrigin(origin)}`
+            `正在获取查询源 | language=${requestLanguage} | country=${requestCountry} | ${formatQueryOrigin(origin)}`
         )
         return this.bot.http.request<T>(
             {
@@ -107,7 +107,7 @@ export class QuerySources {
                 .filter((text): text is string => typeof text === 'string')
                 .map(text => ({ text, ...origin }))
         } catch (error) {
-            this.bot.logger.debug(this.bot.isMobile, 'SEARCH-BING-SUGGESTIONS', `Request failed | ${String(error)}`)
+            this.bot.logger.debug(this.bot.isMobile, 'SEARCH-BING-SUGGESTIONS', `请求失败 | ${String(error)}`)
             return []
         }
     }
@@ -128,7 +128,7 @@ export class QuerySources {
                       .map(text => ({ text, ...origin }))
                 : []
         } catch (error) {
-            this.bot.logger.debug(this.bot.isMobile, 'SEARCH-BING-RELATED', `Request failed | ${String(error)}`)
+            this.bot.logger.debug(this.bot.isMobile, 'SEARCH-BING-RELATED', `请求失败 | ${String(error)}`)
             return []
         }
     }
@@ -167,7 +167,7 @@ export class QuerySources {
             this.bot.logger.debug(
                 this.bot.isMobile,
                 'SEARCH-WIKIPEDIA-TRENDING',
-                `Request failed | lang=${lang} | ${String(error)}`
+                `请求失败 | lang=${lang} | ${String(error)}`
             )
             return []
         }
@@ -188,7 +188,7 @@ export class QuerySources {
                     sourceRank
                 }))
         } catch (error) {
-            this.bot.logger.debug(this.bot.isMobile, 'SEARCH-REDDIT', `Request failed | ${String(error)}`)
+            this.bot.logger.debug(this.bot.isMobile, 'SEARCH-REDDIT', `请求失败 | ${String(error)}`)
             return []
         }
     }
@@ -207,7 +207,7 @@ export class QuerySources {
                     sourceRank
                 }))
         } catch (error) {
-            this.bot.logger.debug(this.bot.isMobile, 'SEARCH-HACKERNEWS', `Request failed | ${String(error)}`)
+            this.bot.logger.debug(this.bot.isMobile, 'SEARCH-HACKERNEWS', `请求失败 | ${String(error)}`)
             return []
         }
     }
@@ -231,7 +231,7 @@ export class QuerySources {
             this.bot.logger.debug(
                 this.bot.isMobile,
                 'SEARCH-WIKIPEDIA-RANDOM',
-                `Request failed | lang=${lang} | ${String(error)}`
+                `请求失败 | lang=${lang} | ${String(error)}`
             )
             return []
         }
@@ -258,7 +258,7 @@ export class QuerySources {
         const add = (site: string, endpoint?: string): void => {
             const entries = RSS_FEEDS[site]
             if (!entries) {
-                this.bot.logger.warn(this.bot.isMobile, 'SEARCH-RSS', `Unknown RSS site "${site}"`)
+                this.bot.logger.warn(this.bot.isMobile, 'SEARCH-RSS', `未知的 RSS 站点 "${site}"`)
                 return
             }
             const regional = site === 'googleTrends' || site === 'googleNews'
@@ -293,7 +293,7 @@ export class QuerySources {
                     }
                 }
                 if (!url) {
-                    this.bot.logger.warn(this.bot.isMobile, 'SEARCH-RSS', `Unknown RSS feed "${site}.${name}"`)
+                    this.bot.logger.warn(this.bot.isMobile, 'SEARCH-RSS', `未知的 RSS 源 "${site}.${name}"`)
                     continue
                 }
                 feeds.set(url, {
@@ -323,7 +323,7 @@ export class QuerySources {
             this.bot.logger.debug(
                 this.bot.isMobile,
                 'QUERY-SOURCE',
-                `Using cached feed | language=${requestLanguage} | country=${requestCountry} | ${formatQueryOrigin(origin)}`
+                `使用缓存的源 | language=${requestLanguage} | country=${requestCountry} | ${formatQueryOrigin(origin)}`
             )
             return cached.topics
         }
@@ -334,14 +334,14 @@ export class QuerySources {
                 this.bot.logger.debug(
                     this.bot.isMobile,
                     'QUERY-SOURCE',
-                    `Feed ready | topics=${parsed.length} | language=${requestLanguage} | country=${requestCountry} | ${formatQueryOrigin(origin)}`
+                    `源已准备就绪 | topics=${parsed.length} | language=${requestLanguage} | country=${requestCountry} | ${formatQueryOrigin(origin)}`
                 )
                 return parsed
             } catch (error) {
                 this.bot.logger.debug(
                     this.bot.isMobile,
                     'SEARCH-RSS',
-                    `Feed failed | ${formatQueryOrigin(origin)} | ${String(error)}`
+                    `源失败 | ${formatQueryOrigin(origin)} | ${String(error)}`
                 )
                 return []
             }
@@ -421,7 +421,7 @@ export class QuerySources {
             this.bot.logger.debug(
                 this.bot.isMobile,
                 'SEARCH-LOCAL-QUERY-LIST',
-                `Failed reading search-queries.json | ${String(error)}`
+                `读取 search-queries.json 失败 | ${String(error)}`
             )
             return []
         }

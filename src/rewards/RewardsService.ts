@@ -82,7 +82,7 @@ export default class RewardsService {
             this.bot.logger.debug(
                 this.bot.isMobile,
                 'STREAKS',
-                `Streak completion refresh unavailable | ${error instanceof Error ? error.message : String(error)}`
+                `连续签到刷新不可用 | ${error instanceof Error ? error.message : String(error)}`
             )
         }
     }
@@ -146,7 +146,7 @@ export default class RewardsService {
         this.bot.logger.debug(
             this.bot.isMobile,
             'EARN-SNAPSHOT',
-            `${offerId} absent from the cached snapshot (offers=${this.bot.reactSnapshot?.offers.length ?? 0}) - refetching /earn and /dashboard`
+            `${offerId} 不在缓存快照中 (offers=${this.bot.reactSnapshot?.offers.length ?? 0}) - 正在重新获取 /earn 和 /dashboard`
         )
 
         const refreshed = await this.refreshEarnSnapshot()
@@ -161,7 +161,7 @@ export default class RewardsService {
         this.bot.logger.debug(
             this.bot.isMobile,
             'EARN-SNAPSHOT',
-            `Refetched /earn and /dashboard | offers=${refreshed.offers.length} | ${offerId} found=${!!live}`
+            `重新获取了 /earn 和 /dashboard | offers=${refreshed.offers.length} | ${offerId} found=${!!live}`
         )
 
         return live

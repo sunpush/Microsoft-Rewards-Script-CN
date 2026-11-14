@@ -55,7 +55,7 @@ export class BrowserSessions {
             this.bot.logger.error(
                 this.bot.isMobile,
                 'LOGIN-APP',
-                `Failed to get app access token: ${error instanceof Error ? error.message : String(error)}`
+                `获取应用访问令牌失败：${error instanceof Error ? error.message : String(error)}`
             )
             return ''
         }
@@ -72,7 +72,7 @@ export class BrowserSessions {
                 this.bot.logger.info(
                     isMobile,
                     'BROWSER',
-                    `${isMobile ? 'Mobile' : 'Desktop'} browser started | ${account.email}`
+                    `${isMobile ? '移动端' : '桌面端'}浏览器已启动 | ${account.email}`
                 )
                 await this.login.login(page, account, options.sessionOnly)
                 const owner = this.owned.get(session.context)
@@ -137,7 +137,7 @@ export class BrowserSessions {
             this.bot.logger.debug(
                 this.bot.isMobile,
                 'BROWSER-TIMEZONE',
-                `Read from Chromium | timezone=${timezone} | offset=${clock.timezoneOffset}`
+                `已从 Chromium 读取 | timezone=${timezone} | offset=${clock.timezoneOffset}`
             )
         }
     }
@@ -162,7 +162,7 @@ export class BrowserSessions {
                 this.bot.logger.debug(
                     this.bot.isMobile,
                     'CLOSE-BROWSER',
-                    `Saving session | cookies=${storageState.cookies.length} | origins=${storageState.origins.length}`
+                    `正在保存会话 | cookies=${storageState.cookies.length} | origins=${storageState.origins.length}`
                 )
                 saveStorageState(this.bot.config.sessionPath, email, isMobile, storageState)
             }
@@ -171,23 +171,23 @@ export class BrowserSessions {
                 this.bot.logger.debug(
                     this.bot.isMobile,
                     'CLOSE-BROWSER',
-                    `Session not saved (browser already closing): ${error instanceof Error ? error.message : String(error)}`
+                    `会话未保存（浏览器已在关闭）：${error instanceof Error ? error.message : String(error)}`
                 )
             } else {
-                this.bot.logger.error(this.bot.isMobile, 'CLOSE-BROWSER', `Failed to save session: ${error}`)
+                this.bot.logger.error(this.bot.isMobile, 'CLOSE-BROWSER', `保存会话失败：${error}`)
             }
         } finally {
             try {
                 await browser.close()
-                this.bot.logger.debug(this.bot.isMobile, 'CLOSE-BROWSER', 'Browser context closed')
+                this.bot.logger.debug(this.bot.isMobile, 'CLOSE-BROWSER', '浏览器上下文已关闭')
             } catch (error) {
                 if (isBrowserClosedError(error)) {
-                    this.bot.logger.debug(this.bot.isMobile, 'CLOSE-BROWSER', 'Browser was already closed.')
+                    this.bot.logger.debug(this.bot.isMobile, 'CLOSE-BROWSER', '浏览器已经关闭')
                 } else {
                     this.bot.logger.warn(
                         this.bot.isMobile,
                         'CLOSE-BROWSER',
-                        'Shutdown encountered an error, but process exiting.'
+                        '关闭过程中遇到错误，但进程即将退出。'
                     )
                 }
             }

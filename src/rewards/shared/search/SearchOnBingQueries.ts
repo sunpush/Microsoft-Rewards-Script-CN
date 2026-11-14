@@ -125,7 +125,7 @@ async function readRemote(bot: QueryContext): Promise<RemoteCatalogue> {
                 bot.logger.warn(
                     bot.isMobile,
                     'SEARCH-ON-BING-QUERY',
-                    `Remote query catalogue unavailable; using bundled queries | ${error instanceof Error ? error.message : String(error)}`
+                    `远程查询目录不可用；使用内置查询 | ${error instanceof Error ? error.message : String(error)}`
                 )
                 return { entries: [], source: 'local-fallback' }
             }
@@ -175,7 +175,7 @@ export async function getSearchOnBingQueries(bot: QueryContext, promotion: BaseP
         bot.logger.warn(
             bot.isMobile,
             'SEARCH-ON-BING-QUERY',
-            `No query topic matched; leaving activity unconfirmed | offerId=${promotion.offerId} | category=${category ?? 'unknown'} | title=${JSON.stringify(promotion.title)}`
+            `未匹配到查询主题；活动状态保持未确认 | offerId=${promotion.offerId} | category=${category ?? 'unknown'} | title=${JSON.stringify(promotion.title)}`
         )
         return []
     }
@@ -200,12 +200,12 @@ export async function getSearchOnBingQueries(bot: QueryContext, promotion: BaseP
                 bot.logger.info(
                     bot.isMobile,
                     'SEARCH-ON-BING-QUERY',
-                    `Using English query fallback | topic=${reference.id ?? category ?? 'legacy'} | requestedLocale=${locales[0]}`
+                    `使用英文查询回退 | topic=${reference.id ?? category ?? 'legacy'} | requestedLocale=${locales[0]}`
                 )
             bot.logger.debug(
                 bot.isMobile,
                 'SEARCH-ON-BING-QUERY',
-                `Selected activity queries | offerId=${promotion.offerId} | topic=${reference.id ?? category ?? 'legacy'}` +
+                `已选择活动查询 | offerId=${promotion.offerId} | topic=${reference.id ?? category ?? 'legacy'}` +
                     ` | matchedBy=${byCategory(local) || byCategory(remote.entries) ? 'offer-category' : 'title'}` +
                     ` | requestedLocale=${locales[0]} | queryLocale=${locale} | source=${source} | queries=${queries.length}`
             )
@@ -215,7 +215,7 @@ export async function getSearchOnBingQueries(bot: QueryContext, promotion: BaseP
     bot.logger.warn(
         bot.isMobile,
         'SEARCH-ON-BING-QUERY',
-        `No queries available for topic | offerId=${promotion.offerId} | topic=${reference.id ?? category ?? 'legacy'} | requestedLocale=${locales[0]}`
+        `主题没有可用查询 | offerId=${promotion.offerId} | topic=${reference.id ?? category ?? 'legacy'} | requestedLocale=${locales[0]}`
     )
     return []
 }

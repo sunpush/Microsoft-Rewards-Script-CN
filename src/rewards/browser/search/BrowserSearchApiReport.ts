@@ -33,14 +33,14 @@ export class BrowserSearchApiReport extends BaseActivity {
             this.bot.logger.info(
                 false,
                 'SEARCH-API-REPORT',
-                "Checking today's Bing Search Streak before the experimental API search"
+                "正在检查今天的 Bing 搜索连续签到，然后执行实验性 API 搜索"
             )
             const streak = await readStreak(this.bot, 'bing-search', 'SEARCH-API-REPORT')
             if (isStreakCompleteToday(streak)) {
                 this.bot.logger.info(
                     false,
                     'SEARCH-API-REPORT',
-                    'Bing Search Streak is already completed today; skipping the API search'
+                    '今天的 Bing 搜索连续签到已完成；跳过 API 搜索'
                 )
                 this.bot.recordActivity('browser-search-api-report', {
                     ...activityResult('skipped', 'already-complete'),
@@ -57,7 +57,7 @@ export class BrowserSearchApiReport extends BaseActivity {
                 this.bot.logger.debug(
                     false,
                     'SEARCH-API-REPORT',
-                    'Search baseline returned an older balance; keeping the experimental credit amount unverified'
+                    '搜索基线返回了较旧的余额；实验性积分保持未验证'
                 )
                 before = undefined
             }
@@ -65,7 +65,7 @@ export class BrowserSearchApiReport extends BaseActivity {
             this.bot.logger.info(
                 false,
                 'SEARCH-API-REPORT',
-                `Sending one experimental API search | streak=${streak ? 'not-completed-today' : 'unavailable'}` +
+                `正在发送一次实验性 API 搜索 | streak=${streak ? 'not-completed-today' : 'unavailable'}` +
                     ` | query=${JSON.stringify(query)}`
             )
 
@@ -112,7 +112,7 @@ export class BrowserSearchApiReport extends BaseActivity {
                 this.bot.logger.debug(
                     false,
                     'SEARCH-API-REPORT',
-                    `Search report verification | check=${check}/3 | counterGain=${counterGain ?? 'unknown'}` +
+                    `搜索上报验证 | check=${check}/3 | counterGain=${counterGain ?? 'unknown'}` +
                         ` | pointsGained=${gained ?? 'unknown'} | currentBalance=${after.dashboard.userStatus.availablePoints}`
                 )
             }
@@ -120,12 +120,12 @@ export class BrowserSearchApiReport extends BaseActivity {
         }
         if (isStreakCompleteToday(afterStreak)) {
             result = { ...result, status: 'confirmed', reason: 'search-streak-verified', message: undefined }
-            this.bot.logger.info(false, 'SEARCH-API-REPORT', 'Bing Search Streak confirmed complete for today')
+            this.bot.logger.info(false, 'SEARCH-API-REPORT', '今天的 Bing 搜索连续签到已确认完成')
         } else {
             this.bot.logger.info(
                 false,
                 'SEARCH-API-REPORT',
-                "One API search attempted; today's Bing Search Streak is not yet confirmed"
+                "已尝试一次 API 搜索；今天的 Bing 搜索连续签到尚未确认完成"
             )
         }
         if (after) this.reconcileActivities(account, after, progress)
@@ -144,7 +144,7 @@ export class BrowserSearchApiReport extends BaseActivity {
             return await this.bot.rewards.getDashboardData()
         } catch (error) {
             this.bot.signal.throwIfAborted()
-            this.bot.logger.debug(false, 'SEARCH-API-REPORT', `Search verification data unavailable | ${String(error)}`)
+            this.bot.logger.debug(false, 'SEARCH-API-REPORT', `搜索验证数据不可用 | ${String(error)}`)
             return undefined
         }
     }

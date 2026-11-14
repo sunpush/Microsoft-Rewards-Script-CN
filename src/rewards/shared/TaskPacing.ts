@@ -22,9 +22,9 @@ export async function runTaskWithDelay<T>(
               : 'activity=task'
     bot.signal.throwIfAborted()
     const remaining = Math.max(0, (bot.accountState.taskReadyAt.get(platform) ?? 0) - Date.now())
-    bot.logger.debug(bot.isMobile, 'TASK-DELAY', `Task delay checked | ${context} | waitMs=${remaining}`)
+    bot.logger.debug(bot.isMobile, 'TASK-DELAY', `已检查任务延迟 | ${context} | waitMs=${remaining}`)
     if (remaining > 0) {
-        bot.logger.info(bot.isMobile, 'TASK-DELAY', `Waiting before next task | ${context} | waitMs=${remaining}`)
+        bot.logger.info(bot.isMobile, 'TASK-DELAY', `等待后再执行下一个任务 | ${context} | waitMs=${remaining}`)
         await bot.utils.wait(remaining)
     }
     bot.signal.throwIfAborted()
@@ -43,10 +43,10 @@ export async function runTaskWithDelay<T>(
             bot.logger.debug(
                 bot.isMobile,
                 'TASK-DELAY',
-                `Task delay scheduled | ${context} | delayMs=${delay} | readyAt=${new Date(readyAt).toISOString()}`
+                `已安排任务延迟 | ${context} | delayMs=${delay} | readyAt=${new Date(readyAt).toISOString()}`
             )
         } else {
-            bot.logger.debug(bot.isMobile, 'TASK-DELAY', `Task delay unchanged | ${context} | reason=task-skipped`)
+            bot.logger.debug(bot.isMobile, 'TASK-DELAY', `任务延迟未变 | ${context} | reason=task-skipped`)
         }
     }
 }
