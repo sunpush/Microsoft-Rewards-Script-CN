@@ -20,20 +20,20 @@ export class ClaimReward extends BaseActivity {
             this.bot.logger.warn(
                 this.bot.isMobile,
                 'CLAIM-REWARD',
-                `Skipping ${offerId}: "reportActivity" not discovered in bundle`
+                `跳过 ${offerId}：bundle 中未发现 "reportActivity"`
             )
             return activityResult('unconfirmed', 'action-id-unavailable', offerId)
         }
 
         if (!child.hash) {
-            this.bot.logger.warn(this.bot.isMobile, 'CLAIM-REWARD', `Skipping ${offerId}: no live hash on quest child`)
+            this.bot.logger.warn(this.bot.isMobile, 'CLAIM-REWARD', `跳过 ${offerId}：Quest 子项没有实时 hash`)
             return activityResult('unconfirmed', 'offer-hash-unavailable', offerId)
         }
 
         this.bot.logger.debug(
             this.bot.isMobile,
             'CLAIM-REWARD',
-            `Claiming reward | offerId=${offerId} | geo=${this.bot.userData.geoLocale}`
+            `正在领取奖励 | offerId=${offerId} | geo=${this.bot.userData.geoLocale}`
         )
 
         const questUrl = URLs.rewards.quest(parentId)
@@ -80,7 +80,7 @@ export class ClaimReward extends BaseActivity {
         this.bot.logger.debug(
             this.bot.isMobile,
             'CLAIM-REWARD',
-            `Quest reward verified | offerId=${offerId} | status=${verified.status}` +
+            `Quest 奖励已验证 | offerId=${offerId} | status=${verified.status}` +
                 ` | pointsGained=${verified.pointsKnown ? verified.pointsGained : 'unknown'}` +
                 ` | currentBalance=${this.bot.userData.currentPoints}`
         )

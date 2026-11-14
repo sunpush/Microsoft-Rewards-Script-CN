@@ -120,7 +120,7 @@ export default class RewardsPageParser {
         this.bot.logger.event(
             this.bot.isMobile,
             'REACT-PARSE',
-            `Snapshot complete | offers=${offers.length} | reportable=${reportable.length} | streaks=${streaks.length}` +
+            `快照完成 | offers=${offers.length} | reportable=${reportable.length} | streaks=${streaks.length}` +
                 ` | streakProtectionEnabled=${streakProtection?.isProtectionOn ?? 'null'}` +
                 ` | streakProtectionRemainingDays=${streakProtection?.remainingDays ?? 'null'}` +
                 ` | streakCounter=${streakProtection?.streakCounter ?? 'null'} | level=${account.level}` +
@@ -270,12 +270,12 @@ export default class RewardsPageParser {
             this.bot.logger.debug(
                 this.bot.isMobile,
                 'REACT-PARSE',
-                `Parsed offers | total=${unique.length} | reportable=${unique.filter(o => o.reportable).length}`
+                `已解析的 offer | total=${unique.length} | reportable=${unique.filter(o => o.reportable).length}`
             )
             this.bot.logger.debug(
                 this.bot.isMobile,
                 'REACT-PARSE',
-                `Parsed offer ids | ${unique.map(o => `${o.offerId}${o.reportable ? '' : '(skip)'}`).join(', ') || 'none'}`
+                `已解析的 offer ID | ${unique.map(o => `${o.offerId}${o.reportable ? '' : '(skip)'}`).join(', ') || 'none'}`
             )
 
             return unique
@@ -283,7 +283,7 @@ export default class RewardsPageParser {
             this.bot.logger.error(
                 this.bot.isMobile,
                 'REACT-PARSE',
-                `Failed parsing offers | error=${error instanceof Error ? error.message : String(error)}`
+                `解析 offers 失败 | error=${error instanceof Error ? error.message : String(error)}`
             )
             return []
         }
@@ -337,7 +337,7 @@ export default class RewardsPageParser {
             this.bot.logger.debug(
                 this.bot.isMobile,
                 'REACT-PARSE',
-                `Parsed streaks | ${unique.map(s => `${s.partner}:${s.completedDays}/${s.totalDays}`).join(', ') || 'none'}`
+                `已解析的连续签到 | ${unique.map(s => `${s.partner}:${s.completedDays}/${s.totalDays}`).join(', ') || 'none'}`
             )
 
             return unique
@@ -345,7 +345,7 @@ export default class RewardsPageParser {
             this.bot.logger.error(
                 this.bot.isMobile,
                 'REACT-PARSE',
-                `Failed parsing streaks | error=${error instanceof Error ? error.message : String(error)}`
+                `解析连续签到失败 | error=${error instanceof Error ? error.message : String(error)}`
             )
             return []
         }
@@ -371,7 +371,7 @@ export default class RewardsPageParser {
             this.bot.logger.debug(
                 this.bot.isMobile,
                 'REACT-PARSE',
-                `Parsed streak protection | enabled=${state.isProtectionOn} | remainingDays=${state.remainingDays ?? 'null'} | streakCounter=${state.streakCounter}`
+                `已解析的连续签到保护 | enabled=${state.isProtectionOn} | remainingDays=${state.remainingDays ?? 'null'} | streakCounter=${state.streakCounter}`
             )
 
             return state
@@ -379,7 +379,7 @@ export default class RewardsPageParser {
             this.bot.logger.error(
                 this.bot.isMobile,
                 'REACT-PARSE',
-                `Failed parsing streak protection | error=${error instanceof Error ? error.message : String(error)}`
+                `解析连续签到保护失败 | error=${error instanceof Error ? error.message : String(error)}`
             )
             return null
         }
@@ -403,14 +403,14 @@ export default class RewardsPageParser {
             this.bot.logger.debug(
                 this.bot.isMobile,
                 'REACT-PARSE',
-                `Parsed account | level=${account.level} | available=${account.availablePoints} | toGo=${account.pointsRemaining} | lifetime=${account.lifetimeEarn}`
+                `已解析的账户 | level=${account.level} | available=${account.availablePoints} | toGo=${account.pointsRemaining} | lifetime=${account.lifetimeEarn}`
             )
 
             if (account.level === null && account.availablePoints === null) {
                 this.bot.logger.debug(
                     this.bot.isMobile,
                     'REACT-PARSE',
-                    'Account state empty - membership/header objects not found in payload'
+                    '账户状态为空 - payload 中未找到 membership/header 对象'
                 )
             }
 
@@ -419,7 +419,7 @@ export default class RewardsPageParser {
             this.bot.logger.error(
                 this.bot.isMobile,
                 'REACT-PARSE',
-                `Failed parsing account | error=${error instanceof Error ? error.message : String(error)}`
+                `解析账户失败 | error=${error instanceof Error ? error.message : String(error)}`
             )
             return empty
         }
@@ -455,7 +455,7 @@ export default class RewardsPageParser {
             this.bot.logger.debug(
                 this.bot.isMobile,
                 'REACT-PARSE',
-                `Quest snapshot | children=${children.length} | reportable=${children.filter(c => c.reportable).length}`
+                `Quest 快照 | children=${children.length} | reportable=${children.filter(c => c.reportable).length}`
             )
 
             return children
@@ -463,7 +463,7 @@ export default class RewardsPageParser {
             this.bot.logger.error(
                 this.bot.isMobile,
                 'REACT-PARSE',
-                `Failed parsing quest page | error=${error instanceof Error ? error.message : String(error)}`
+                `解析 Quest 页面失败 | error=${error instanceof Error ? error.message : String(error)}`
             )
             return []
         }
@@ -507,7 +507,7 @@ export default class RewardsPageParser {
         this.bot.logger.debug(
             this.bot.isMobile,
             'REACT-PARSE',
-            `Parsed quest children | total=${out.length} | reportable=${out.filter(c => c.reportable).length}`
+            `已解析的 quest 子项 | total=${out.length} | reportable=${out.filter(c => c.reportable).length}`
         )
 
         return out
@@ -564,18 +564,18 @@ export default class RewardsPageParser {
             this.bot.logger.debug(
                 this.bot.isMobile,
                 'REACT-PARSE',
-                `Quest list | parents=${out.length} | incomplete=${out.filter(q => !q.complete).length}`
+                `Quest 列表 | parents=${out.length} | incomplete=${out.filter(q => !q.complete).length}`
             )
             this.bot.logger.debug(
                 this.bot.isMobile,
                 'REACT-PARSE',
-                `Quest points | ${out.map(q => `${q.title || q.offerId}=${q.pointProgressMax}`).join(' | ') || 'none'}`
+                `Quest 积分 | ${out.map(q => `${q.title || q.offerId}=${q.pointProgressMax}`).join(' | ') || 'none'}`
             )
             if (!out.length) {
                 this.bot.logger.warn(
                     this.bot.isMobile,
                     'REACT-PARSE',
-                    'No parent quests parsed - the fetched HTML may be missing the QuestSection chunks (Suspense/streaming or a login redirect)'
+                    '未解析到父级 Quest - 获取的 HTML 可能缺少 QuestSection 数据块（Suspense/流式传输或登录重定向）'
                 )
             }
             return out
@@ -583,7 +583,7 @@ export default class RewardsPageParser {
             this.bot.logger.error(
                 this.bot.isMobile,
                 'REACT-PARSE',
-                `Failed parsing quest list | error=${error instanceof Error ? error.message : String(error)}`
+                `解析 Quest 列表失败 | error=${error instanceof Error ? error.message : String(error)}`
             )
             return []
         }

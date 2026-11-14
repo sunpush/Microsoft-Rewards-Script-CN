@@ -26,7 +26,7 @@ export class BrowserPunchCards extends BaseActivity {
         const sourcePage = browserTaskPass.getStore()?.page ?? this.navigator.getActivePage()
         if (!sourcePage || sourcePage.isClosed()) {
             this.bot.recordActivity('punchcards', activityResult('unconfirmed', 'browser-unavailable'))
-            this.bot.logger.warn(this.bot.isMobile, 'PUNCHCARD-BROWSER', 'Browser page unavailable')
+            this.bot.logger.warn(this.bot.isMobile, 'PUNCHCARD-BROWSER', '浏览器页面不可用')
             return
         }
 
@@ -42,11 +42,11 @@ export class BrowserPunchCards extends BaseActivity {
                     (!this.bot.config.skipNonPointTasks || parent.pointProgressMax > 0)
             )
             if (!parents.length) {
-                this.bot.logger.debug(this.bot.isMobile, 'PUNCHCARD-BROWSER', 'No eligible incomplete punchcards')
+                this.bot.logger.debug(this.bot.isMobile, 'PUNCHCARD-BROWSER', '没有符合条件的未完成 punchcard')
                 return
             }
 
-            this.bot.logger.info(this.bot.isMobile, 'PUNCHCARD-BROWSER', `Found ${parents.length} incomplete quest(s)`)
+            this.bot.logger.info(this.bot.isMobile, 'PUNCHCARD-BROWSER', `找到 ${parents.length} 个未完成的 Quest`)
 
             task = await BrowserTaskPage.createRewards(sourcePage)
             for (const parent of parents) {
@@ -58,7 +58,7 @@ export class BrowserPunchCards extends BaseActivity {
                     this.bot.logger.error(
                         this.bot.isMobile,
                         'PUNCHCARD-BROWSER',
-                        `Quest failed | offerId=${parent.offerId} | ${String(error)}`
+                        `Quest 处理失败 | offerId=${parent.offerId} | ${String(error)}`
                     )
                 }
             }
@@ -94,7 +94,7 @@ export class BrowserPunchCards extends BaseActivity {
             this.bot.logger.warn(
                 this.bot.isMobile,
                 'PUNCHCARD-BROWSER',
-                `Quest card disappeared before it could be opened | offerId=${parent.offerId}`
+                `Quest 卡片在打开前消失 | offerId=${parent.offerId}`
             )
             return
         }
@@ -110,7 +110,7 @@ export class BrowserPunchCards extends BaseActivity {
         this.bot.logger.debug(
             this.bot.isMobile,
             'PUNCHCARD-BROWSER',
-            `Quest processed | offerId=${parent.offerId} | currentBalance=${newBalance}`
+            `Quest 已处理 | offerId=${parent.offerId} | currentBalance=${newBalance}`
         )
     }
 
@@ -151,7 +151,7 @@ export class BrowserPunchCards extends BaseActivity {
             this.bot.logger.debug(
                 this.bot.isMobile,
                 'PUNCHCARD-BROWSER',
-                `Quest metadata unavailable | ${String(error)}`
+                `Quest 元数据不可用 | ${String(error)}`
             )
         }
         observePunchCard(
@@ -182,7 +182,7 @@ export class BrowserPunchCards extends BaseActivity {
                 this.bot.logger.info(
                     this.bot.isMobile,
                     'PUNCHCARD-BROWSER',
-                    `Quest complete | offerId=${parent.offerId} | progress=${progress}`
+                    `Quest 已完成 | offerId=${parent.offerId} | progress=${progress}`
                 )
                 return
             }
@@ -200,9 +200,9 @@ export class BrowserPunchCards extends BaseActivity {
                 this.bot.logger.info(
                     this.bot.isMobile,
                     'PUNCHCARD-BROWSER',
-                    `No further available steps | offerId=${parent.offerId} | progress=${progress}` +
+                    `没有更多可用步骤 | offerId=${parent.offerId} | progress=${progress}` +
                         ` | lockedOrDisabled=${state.steps.filter(step => !step.complete && step.disabled).length}` +
-                        ' | remaining steps will be checked on the next run'
+                        ' | 剩余步骤将在下次运行时检查'
                 )
                 return
             }
@@ -213,7 +213,7 @@ export class BrowserPunchCards extends BaseActivity {
                 this.bot.logger.info(
                     this.bot.isMobile,
                     'PUNCHCARD-BROWSER',
-                    `Reward is ready for manual redemption | quest=${parent.offerId} | step="${child.title}"`
+                    `奖励已准备好手动兑换 | quest=${parent.offerId} | step="${child.title}"`
                 )
                 continue
             }
@@ -255,7 +255,7 @@ export class BrowserPunchCards extends BaseActivity {
                         this.bot.logger.warn(
                             this.bot.isMobile,
                             'PUNCHCARD-BROWSER',
-                            `Step click failed; refreshing its state | step="${child.title}" | ${String(error)}`
+                            `步骤点击失败；正在刷新其状态 | step="${child.title}" | ${String(error)}`
                         )
                     }
 
@@ -279,7 +279,7 @@ export class BrowserPunchCards extends BaseActivity {
             this.bot.logger.debug(
                 this.bot.isMobile,
                 'PUNCHCARD-BROWSER',
-                `Step ${confirmed() ? 'confirmed' : 'completion not yet confirmed'} | quest=${parent.offerId}` +
+                `步骤${confirmed() ? '已确认' : '完成情况尚未确认'} | quest=${parent.offerId}` +
                     ` | step="${child.title}" | progress=${state.completed ?? '?'}/${state.total ?? '?'}` +
                     ` | pointsGained=${result.pointsKnown ? result.pointsGained : 'unknown'}`
             )
@@ -287,7 +287,7 @@ export class BrowserPunchCards extends BaseActivity {
         this.bot.logger.warn(
             this.bot.isMobile,
             'PUNCHCARD-BROWSER',
-            `Stopped at the step limit | offerId=${parent.offerId}`
+            `已达到步骤上限 | offerId=${parent.offerId}`
         )
     }
 

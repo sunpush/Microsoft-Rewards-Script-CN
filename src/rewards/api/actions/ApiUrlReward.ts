@@ -16,7 +16,7 @@ export class ApiUrlReward extends BaseActivity {
     async run(promotion: BasePromotion): Promise<ActivityResult> {
         const offerId = promotion.offerId
         if (isSkippedOffer(offerId, promotion.destinationUrl)) {
-            this.bot.logger.debug(this.bot.isMobile, 'URL-REWARD-API', `Permanently skipped offer | offerId=${offerId}`)
+            this.bot.logger.debug(this.bot.isMobile, 'URL-REWARD-API', `永久跳过 offer | offerId=${offerId}`)
             return activityResult('skipped', 'offer-excluded', offerId)
         }
         const live = await this.bot.rewards.resolveOffer(offerId)
@@ -25,7 +25,7 @@ export class ApiUrlReward extends BaseActivity {
             this.bot.logger.debug(
                 this.bot.isMobile,
                 'URL-REWARD-API',
-                `Offer cannot currently be reported | offerId=${offerId}`
+                `当前无法上报 offer | offerId=${offerId}`
             )
             return nonReportableOfferResult(live)
         }
@@ -33,7 +33,7 @@ export class ApiUrlReward extends BaseActivity {
             this.bot.logger.debug(
                 this.bot.isMobile,
                 'URL-REWARD-API',
-                `Skipping ${offerId}: awards no points and skipNonPointTasks=true`
+                `跳过 ${offerId}：不奖励积分且 skipNonPointTasks=true`
             )
             return activityResult('skipped', 'no-points', offerId)
         }
@@ -43,7 +43,7 @@ export class ApiUrlReward extends BaseActivity {
             this.bot.logger.warn(
                 this.bot.isMobile,
                 'URL-REWARD-API',
-                `Skipping ${offerId}: "reportActivity" was not discovered`
+                `跳过 ${offerId}：未发现 "reportActivity"`
             )
             return activityResult('unconfirmed', 'action-id-unavailable', offerId)
         }
@@ -59,7 +59,7 @@ export class ApiUrlReward extends BaseActivity {
         this.bot.logger.debug(
             this.bot.isMobile,
             'URL-REWARD-API',
-            `Reporting Rewards offer | offerId=${offerId} | currentBalance=${oldBalance}`
+            `正在上报 Rewards offer | offerId=${offerId} | currentBalance=${oldBalance}`
         )
 
         let outcome: ActivityResult
@@ -94,13 +94,13 @@ export class ApiUrlReward extends BaseActivity {
             this.bot.logger.debug(
                 this.bot.isMobile,
                 'URL-REWARD-API',
-                `Offer response | offerId=${offerId} | status=${result.status} | acknowledged=${result.acknowledged}`
+                `offer 响应 | offerId=${offerId} | status=${result.status} | acknowledged=${result.acknowledged}`
             )
         } catch (error) {
             this.bot.logger.error(
                 this.bot.isMobile,
                 'URL-REWARD-API',
-                `API offer failed | offerId=${offerId} | ${error instanceof Error ? error.message : String(error)}`
+                `API offer 失败 | offerId=${offerId} | ${error instanceof Error ? error.message : String(error)}`
             )
             outcome = { ...activityFailure(error, offerId), pointsKnown: false }
         }
@@ -110,9 +110,9 @@ export class ApiUrlReward extends BaseActivity {
             `offerId=${offerId} | pointsGained=${verified.pointsKnown === false ? 'unknown' : verified.pointsGained}` +
             ` | currentBalance=${this.bot.userData.currentPoints} | previousBalance=${oldBalance} | reason=${verified.reason}`
         if (verified.status === 'confirmed') {
-            this.bot.logger.debug(this.bot.isMobile, 'URL-REWARD-API', `Completed API offer | ${details}`)
+            this.bot.logger.debug(this.bot.isMobile, 'URL-REWARD-API', `API offer 已完成 | ${details}`)
         } else {
-            this.bot.logger.warn(this.bot.isMobile, 'URL-REWARD-API', `API offer was not confirmed | ${details}`)
+            this.bot.logger.warn(this.bot.isMobile, 'URL-REWARD-API', `API offer 未确认 | ${details}`)
         }
         return verified
     }
@@ -138,7 +138,7 @@ export class ApiUrlReward extends BaseActivity {
         this.bot.logger.debug(
             this.bot.isMobile,
             'URL-REWARD-API',
-            `Flyout offer verified | offerId=${offerId} | status=${verified.status}` +
+            `任务栏 offer 已验证 | offerId=${offerId} | status=${verified.status}` +
                 ` | pointsGained=${verified.pointsKnown ? verified.pointsGained : 'unknown'}` +
                 ` | currentBalance=${this.bot.userData.currentPoints}`
         )

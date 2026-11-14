@@ -34,7 +34,7 @@ export class BrowserTaskRunner extends BaseActivity {
         try {
             flyoutTask = await BrowserTaskPage.create(source)
             result = await browserTaskPass.run({ surface: 'flyout', confirmed, page: flyoutTask.page }, async () => {
-                this.bot.logger.info(this.bot.isMobile, 'BROWSER-TASKS', 'Starting flyout task pass')
+                this.bot.logger.info(this.bot.isMobile, 'BROWSER-TASKS', '开始任务栏任务流程')
                 let data = this.rememberCompletedOffers(await this.bot.rewards.getTaskData(), confirmed)
                 const daily = await this.runDailySet(data)
                 data = daily.data
@@ -48,7 +48,7 @@ export class BrowserTaskRunner extends BaseActivity {
             this.bot.logger.warn(
                 this.bot.isMobile,
                 'BROWSER-TASKS',
-                `Flyout pass failed; checking /earn for remaining tasks | ${String(error)}`
+                `任务栏流程失败；正在检查 /earn 中的剩余任务 | ${String(error)}`
             )
         } finally {
             await flyoutTask?.close()
@@ -60,7 +60,7 @@ export class BrowserTaskRunner extends BaseActivity {
             const page = earnTask.page
             const readEarn = () => earn.read(() => this.bot.rewards.getDashboardData(), page)
             result = await browserTaskPass.run({ surface: 'earn', confirmed, page, readEarn }, async () => {
-                this.bot.logger.info(this.bot.isMobile, 'BROWSER-TASKS', 'Starting /earn task pass for remaining tasks')
+                this.bot.logger.info(this.bot.isMobile, 'BROWSER-TASKS', '开始处理 /earn 中的剩余任务')
                 let data = this.rememberCompletedOffers(await readEarn(), confirmed)
                 const daily = await this.runDailySet(data)
                 data = daily.data
@@ -93,7 +93,7 @@ export class BrowserTaskRunner extends BaseActivity {
             this.bot.logger.warn(
                 this.bot.isMobile,
                 'BROWSER-TASKS',
-                `/earn pass failed; remaining earn tasks could not finish | ${String(error)}`
+                `/earn 流程失败；剩余 earn 任务无法完成 | ${String(error)}`
             )
         } finally {
             await earnTask?.close()
@@ -117,11 +117,11 @@ export class BrowserTaskRunner extends BaseActivity {
             'BROWSER-TASKS',
             earnCompleted
                 ? flyoutCompleted
-                    ? 'Completed flyout and earn task passes'
-                    : 'Completed /earn fallback after flyout pass failed'
+                    ? '任务栏和 earn 任务流程均已完成'
+                    : '任务栏流程失败后已完成 /earn 回退'
                 : flyoutCompleted
-                  ? 'Finished flyout; /earn pass remains unconfirmed'
-                  : 'Browser task passes remain unconfirmed'
+                  ? '任务栏流程已完成；/earn 流程仍未确认'
+                  : '浏览器任务流程仍未确认'
         )
         return result
     }

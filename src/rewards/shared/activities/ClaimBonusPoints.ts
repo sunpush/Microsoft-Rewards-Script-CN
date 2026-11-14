@@ -25,7 +25,7 @@ export class ClaimBonusPoints extends BaseActivity {
                 this.bot.logger.info(
                     this.bot.isMobile,
                     'CLAIM-BONUS-POINTS',
-                    `Nothing to claim | claimablePoints=0 | pointsGained=0 | currentBalance=${oldBalance}`
+                    `没有可领取的积分 | claimablePoints=0 | pointsGained=0 | currentBalance=${oldBalance}`
                 )
                 return activityResult('skipped', 'no-claimable-bonus')
             }
@@ -34,7 +34,7 @@ export class ClaimBonusPoints extends BaseActivity {
                 this.bot.logger.warn(
                     this.bot.isMobile,
                     'CLAIM-BONUS-POINTS',
-                    'Claimable bonus points could not be verified; skipping claim request'
+                    '无法验证可领取的奖励积分；跳过领取请求'
                 )
                 return activityResult('unconfirmed', 'claimable-bonus-unknown')
             }
@@ -42,7 +42,7 @@ export class ClaimBonusPoints extends BaseActivity {
             this.bot.logger.debug(
                 this.bot.isMobile,
                 'CLAIM-BONUS-POINTS',
-                `Starting ClaimBonusPoints | transport=api | rewardsMode=${this.bot.config.rewardsMode}` +
+                `开始 ClaimBonusPoints | transport=api | rewardsMode=${this.bot.config.rewardsMode}` +
                     ` | claimablePoints=${before.claimable ?? 'unknown'} | currentBalance=${oldBalance}`
             )
             const backgroundActive = this.bot.accountState.backgroundRewardsActive
@@ -55,7 +55,7 @@ export class ClaimBonusPoints extends BaseActivity {
                 this.bot.logger.warn(
                     this.bot.isMobile,
                     'CLAIM-BONUS-POINTS',
-                    `Claim submission uncertain; verifying without resubmitting | ${String(error)}`
+                    `领取提交状态不确定；验证中，不会重复提交 | ${String(error)}`
                 )
             }
 
@@ -85,7 +85,7 @@ export class ClaimBonusPoints extends BaseActivity {
                     this.bot.logger.warn(
                         this.bot.isMobile,
                         'CLAIM-BONUS-POINTS',
-                        `Claim verification read failed | attempt=${attempt + 1} | acknowledged=${response?.acknowledged ?? false}` +
+                        `读取领取验证信息失败 | attempt=${attempt + 1} | acknowledged=${response?.acknowledged ?? false}` +
                             ` | message=${error instanceof Error ? error.message : String(error)}`
                     )
                 }
@@ -98,7 +98,7 @@ export class ClaimBonusPoints extends BaseActivity {
                     this.bot.logger.warn(
                         this.bot.isMobile,
                         'CLAIM-BONUS-POINTS',
-                        `Claim balance verification failed | attempt=${attempt + 1}` +
+                        `领取余额验证失败 | attempt=${attempt + 1}` +
                             ` | message=${error instanceof Error ? error.message : String(error)}`
                     )
                 }
@@ -107,7 +107,7 @@ export class ClaimBonusPoints extends BaseActivity {
                 this.bot.logger.debug(
                     this.bot.isMobile,
                     'CLAIM-BONUS-POINTS',
-                    `Claim verification | attempt=${attempt + 1}/4 | previousBalance=${oldBalance}` +
+                    `领取验证 | attempt=${attempt + 1}/4 | previousBalance=${oldBalance}` +
                         ` | currentBalance=${verifiedBalance ?? 'unknown'} | balanceDelta=${balanceDelta ?? 'unknown'}` +
                         ` | claimableAfter=${after?.claimable ?? 'unknown'} | stateConfirmed=${stateConfirmed()}` +
                         ` | balanceConfirmed=${balanceConfirmed()}`
@@ -138,7 +138,7 @@ export class ClaimBonusPoints extends BaseActivity {
                     ? 'claim-request-failed'
                     : 'claim-not-confirmed'
             const message =
-                `${confirmed ? 'Completed ClaimBonusPoints' : 'Nothing claimed'}` +
+                `${confirmed ? 'ClaimBonusPoints 已完成' : '未领取任何积分'}` +
                 ` | status=${response?.status ?? 'unknown'} | acknowledged=${response?.acknowledged ?? false}` +
                 ` | claimableBefore=${before.claimable ?? 'unknown'} | claimableAfter=${after?.claimable ?? 'unknown'}` +
                 ` | previousBalance=${oldBalance} | currentBalance=${newBalance}` +
@@ -162,7 +162,7 @@ export class ClaimBonusPoints extends BaseActivity {
             this.bot.logger.error(
                 this.bot.isMobile,
                 'CLAIM-BONUS-POINTS',
-                `Error in claimBonusPoints | message=${error instanceof Error ? error.message : String(error)}`
+                `claimBonusPoints 中出错 | message=${error instanceof Error ? error.message : String(error)}`
             )
             return activityFailure(error)
         } finally {

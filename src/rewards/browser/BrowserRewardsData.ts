@@ -29,7 +29,7 @@ export class BrowserRewardsData implements TaskDataSource {
     async bootstrap(): Promise<void> {
         this.bot.nextActions = {}
         this.bot.nextRouterStateTree = ''
-        this.bot.logger.debug(this.bot.isMobile, 'BOOTSTRAP', 'Browser context ready | userDataSource=rewards-api')
+        this.bot.logger.debug(this.bot.isMobile, 'BOOTSTRAP', '浏览器上下文已准备 | userDataSource=rewards-api')
     }
 
     async getTaskData(): Promise<RewardsState> {
@@ -79,7 +79,7 @@ export class BrowserRewardsData implements TaskDataSource {
                             this.bot.logger.debug(
                                 this.bot.isMobile,
                                 'DAILY-SET',
-                                `Rendered Daily Set readiness unavailable; using displayed cards only | expectedCards=${expectedDailyCards} | ${error instanceof Error ? error.message.split('\n')[0] : String(error)}`
+                                `渲染的每日任务就绪状态不可用；仅使用已显示的卡片 | expectedCards=${expectedDailyCards} | ${error instanceof Error ? error.message.split('\n')[0] : String(error)}`
                             )
                         })
                 }
@@ -90,7 +90,7 @@ export class BrowserRewardsData implements TaskDataSource {
                 this.bot.logger.debug(
                     this.bot.isMobile,
                     'DAILY-SET',
-                    `Using rendered Daily Set | localDate=${today} | modelDates=${modelDates.join(',')} | renderedCards=${cards.filter(card => card.visible).length} | offerIds=${dashboard.dashboard.dailySetPromotions[today]!.map(item => item.offerId).join(',')}`
+                    `使用渲染的每日任务 | localDate=${today} | modelDates=${modelDates.join(',')} | renderedCards=${cards.filter(card => card.visible).length} | offerIds=${dashboard.dashboard.dailySetPromotions[today]!.map(item => item.offerId).join(',')}`
                 )
             }
             const dailySetCount = Object.values(dashboard.dashboard.dailySetPromotions ?? {}).flat().length
@@ -99,7 +99,7 @@ export class BrowserRewardsData implements TaskDataSource {
             this.bot.logger.debug(
                 this.bot.isMobile,
                 'BROWSER-MODE',
-                `Read rendered Bing Rewards flyout | dailySet=${dailySetCount} | more=${moreCount}` +
+                `已读取渲染的 Bing Rewards 任务栏 | dailySet=${dailySetCount} | more=${moreCount}` +
                     ` | sections=${metadata?.parsedSections.length ?? 0}` +
                     ` | promotionSections=${metadata?.promotionSections.length ?? 0}` +
                     ` | catalogItems=${metadata?.catalogItemCount ?? 0}` +
@@ -149,7 +149,7 @@ export class BrowserRewardsData implements TaskDataSource {
             this.bot.logger.warn(
                 this.bot.isMobile,
                 'BROWSER-MODE',
-                `Page read failed | route=${route} | ${error instanceof Error ? error.message : String(error)}`
+                `页面读取失败 | route=${route} | ${error instanceof Error ? error.message : String(error)}`
             )
             return null
         } finally {

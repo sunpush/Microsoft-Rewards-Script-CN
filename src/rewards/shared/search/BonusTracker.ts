@@ -35,7 +35,7 @@ export class BonusTracker implements SearchTracker {
 
     async prepare(): Promise<boolean> {
         if (this.maxSearches <= 0) {
-            this.bot.logger.debug(this.isMobile, this.context, 'maxBonusSearches is 0, skipping bonus farming')
+            this.bot.logger.debug(this.isMobile, this.context, 'maxBonusSearches 为 0，跳过奖励搜索')
             return false
         }
 
@@ -48,7 +48,7 @@ export class BonusTracker implements SearchTracker {
             this.bot.logger.warn(
                 this.isMobile,
                 this.context,
-                `Could not fetch dashboard, skipping bonus farming | ${error instanceof Error ? error.message : String(error)}`
+                `无法获取仪表板，跳过奖励搜索 | ${error instanceof Error ? error.message : String(error)}`
             )
             return false
         }
@@ -59,7 +59,7 @@ export class BonusTracker implements SearchTracker {
             this.bot.logger.debug(
                 this.isMobile,
                 this.context,
-                'No active search-bonus offer in the dashboard, skipping'
+                '仪表板中没有活跃的搜索奖励，跳过'
             )
             return false
         }
@@ -81,7 +81,7 @@ export class BonusTracker implements SearchTracker {
         this.bot.logger.info(
             this.isMobile,
             this.context,
-            `Found search bonus "${offer.title}" | offerId=${this.offerId} | progress=${this.current}/${this.max} | maxSearches=${this.maxSearches}`
+            `找到搜索奖励 "${offer.title}" | offerId=${this.offerId} | progress=${this.current}/${this.max} | maxSearches=${this.maxSearches}`
         )
         return true
     }
@@ -99,7 +99,7 @@ export class BonusTracker implements SearchTracker {
 
         const cur = findSearchBonusById(dash, this.offerId)
         if (!cur) {
-            this.bot.logger.warn(this.isMobile, this.context, `Offer ${this.offerId} no longer present, stopping`)
+            this.bot.logger.warn(this.isMobile, this.context, `奖励 ${this.offerId} 不再存在，停止`)
             this.offerLost = true
             this.pointsGained = null
             return null

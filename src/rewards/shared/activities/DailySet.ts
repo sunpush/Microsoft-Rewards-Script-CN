@@ -15,7 +15,7 @@ export class DailySet extends BaseActivity {
             this.bot.logger.debug(
                 this.bot.isMobile,
                 'DAILY-SET',
-                'No eligible pending "Daily Set" items in the current data'
+                '当前数据中没有符合条件的待处理“每日任务”项目'
             )
             return
         }
@@ -23,9 +23,9 @@ export class DailySet extends BaseActivity {
         this.bot.logger.info(
             this.bot.isMobile,
             'DAILY-SET',
-            `Started solving "Daily Set" items | remaining=${pending.length}`
+            `开始处理“每日任务”项目 | remaining=${pending.length}`
         )
         await new PromotionRunner(this.bot).run(pending, 'daily-set')
-        this.bot.logger.debug(this.bot.isMobile, 'DAILY-SET', 'Finished processing "Daily Set" items')
+        this.bot.logger.debug(this.bot.isMobile, 'DAILY-SET', '“每日任务”项目处理完成')
     }
 }

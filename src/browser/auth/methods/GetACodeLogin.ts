@@ -40,14 +40,14 @@ export class CodeLogin {
                 await input.fill(code, { timeout })
                 if (await input.isVisible()) await input.press('Enter', { timeout })
             }
-            this.bot.logger.debug(this.bot.isMobile, 'LOGIN-CODE', 'Verification code submitted; waiting for response')
+            this.bot.logger.debug(this.bot.isMobile, 'LOGIN-CODE', '验证码已提交；等待响应')
             return true
         } catch (error) {
             this.bot.signal.throwIfAborted()
             this.bot.logger.warn(
                 this.bot.isMobile,
                 'LOGIN-CODE',
-                `Failed to fill code input: ${error instanceof Error ? error.message : String(error)}`
+                `填写验证码输入框失败：${error instanceof Error ? error.message : String(error)}`
             )
             return false
         }
@@ -62,14 +62,14 @@ export class CodeLogin {
             await ghostClick(page, input, timeout, this.bot.signal)
             await input.fill(email, { timeout })
             await input.press('Enter', { timeout })
-            this.bot.logger.debug(this.bot.isMobile, 'LOGIN-CODE', 'Verification email submitted; waiting for response')
+            this.bot.logger.debug(this.bot.isMobile, 'LOGIN-CODE', '验证邮箱已提交；等待响应')
             return true
         } catch (error) {
             this.bot.signal.throwIfAborted()
             this.bot.logger.warn(
                 this.bot.isMobile,
                 'LOGIN-CODE',
-                `Failed to fill email input: ${error instanceof Error ? error.message : String(error)}`
+                `填写邮箱输入框失败：${error instanceof Error ? error.message : String(error)}`
             )
             return false
         }
@@ -77,7 +77,7 @@ export class CodeLogin {
 
     async handle(page: Page): Promise<void> {
         try {
-            this.bot.logger.debug(this.bot.isMobile, 'LOGIN-CODE', 'Code login authentication requested')
+            this.bot.logger.debug(this.bot.isMobile, 'LOGIN-CODE', '请求验证码登录身份验证')
 
             if (!canPromptForInput()) {
                 throw new Error('Email-code authentication requires interactive stdin; unavailable in background mode')
@@ -85,9 +85,9 @@ export class CodeLogin {
 
             const emailMessage = await getSubtitleMessage(page)
             if (emailMessage) {
-                this.bot.logger.info(this.bot.isMobile, 'LOGIN-CODE', `Page message: "${emailMessage}"`)
+                this.bot.logger.info(this.bot.isMobile, 'LOGIN-CODE', `页面消息：“${emailMessage}”`)
             } else {
-                this.bot.logger.warn(this.bot.isMobile, 'LOGIN-CODE', 'Unable to retrieve email code destination')
+                this.bot.logger.warn(this.bot.isMobile, 'LOGIN-CODE', '无法获取邮箱验证码目的地')
             }
 
             const emailProofInput = await this.findEmailVerificationInput(page)
@@ -97,7 +97,7 @@ export class CodeLogin {
                 this.bot.logger.info(
                     this.bot.isMobile,
                     'LOGIN-CODE',
-                    'Email verification challenge detected, awaiting email address'
+                    '检测到邮箱验证请求，等待输入邮箱地址'
                 )
 
                 let emailVerified = false
@@ -114,7 +114,7 @@ export class CodeLogin {
                         this.bot.logger.warn(
                             this.bot.isMobile,
                             'LOGIN-CODE',
-                            `Invalid or missing email (attempt ${attempt}/${this.maxManualAttempts}) | input length=${email?.length}`
+                            `邮箱无效或缺失（尝试 ${attempt}/${this.maxManualAttempts}）| 输入长度=${email?.length}`
                         )
 
                         if (attempt === this.maxManualAttempts) {
@@ -128,7 +128,7 @@ export class CodeLogin {
                         this.bot.logger.error(
                             this.bot.isMobile,
                             'LOGIN-CODE',
-                            `Unable to fill email input (attempt ${attempt}/${this.maxManualAttempts})`
+                            `无法填写邮箱输入框（尝试 ${attempt}/${this.maxManualAttempts}）`
                         )
 
                         if (attempt === this.maxManualAttempts) {
@@ -144,7 +144,7 @@ export class CodeLogin {
                         this.bot.logger.warn(
                             this.bot.isMobile,
                             'LOGIN-CODE',
-                            `Email rejected: ${emailError} (attempt ${attempt}/${this.maxManualAttempts})`
+                            `邮箱被拒绝：${emailError}（尝试 ${attempt}/${this.maxManualAttempts}）`
                         )
 
                         if (attempt === this.maxManualAttempts) {
@@ -154,7 +154,7 @@ export class CodeLogin {
                         continue
                     }
 
-                    this.bot.logger.info(this.bot.isMobile, 'LOGIN-CODE', 'Email accepted, verification code sent')
+                    this.bot.logger.info(this.bot.isMobile, 'LOGIN-CODE', '邮箱已接受，验证码已发送')
                     emailVerified = true
                     break
                 }
@@ -175,7 +175,7 @@ export class CodeLogin {
                     this.bot.logger.warn(
                         this.bot.isMobile,
                         'LOGIN-CODE',
-                        `Invalid or missing code (attempt ${attempt}/${this.maxManualAttempts}) | input length=${code?.length}`
+                        `验证码无效或缺失（尝试 ${attempt}/${this.maxManualAttempts}）| 输入长度=${code?.length}`
                     )
 
                     if (attempt === this.maxManualAttempts) {
@@ -189,7 +189,7 @@ export class CodeLogin {
                     this.bot.logger.error(
                         this.bot.isMobile,
                         'LOGIN-CODE',
-                        `Unable to fill code input (attempt ${attempt}/${this.maxManualAttempts})`
+                        `无法填写验证码输入框（尝试 ${attempt}/${this.maxManualAttempts}）`
                     )
 
                     if (attempt === this.maxManualAttempts) {
@@ -206,7 +206,7 @@ export class CodeLogin {
                     this.bot.logger.warn(
                         this.bot.isMobile,
                         'LOGIN-CODE',
-                        `Incorrect code: ${errorMessage} (attempt ${attempt}/${this.maxManualAttempts})`
+                        `验证码错误：${errorMessage}（尝试 ${attempt}/${this.maxManualAttempts}）`
                     )
 
                     if (attempt === this.maxManualAttempts) {
@@ -219,7 +219,7 @@ export class CodeLogin {
                 this.bot.logger.debug(
                     this.bot.isMobile,
                     'LOGIN-CODE',
-                    'Code response received; checking next sign-in state'
+                    '收到验证码响应；正在检查下一步登录状态'
                 )
                 return
             }
@@ -229,7 +229,7 @@ export class CodeLogin {
             this.bot.logger.error(
                 this.bot.isMobile,
                 'LOGIN-CODE',
-                `Error occurred: ${error instanceof Error ? error.message : String(error)}`
+                `发生错误：${error instanceof Error ? error.message : String(error)}`
             )
             throw error
         }

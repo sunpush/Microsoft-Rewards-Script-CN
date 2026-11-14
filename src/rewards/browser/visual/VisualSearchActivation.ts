@@ -13,7 +13,7 @@ export class VisualSearchActivation extends BaseActivity {
     async click(target: ParsedOffer): Promise<ActivationOutcome> {
         const sourcePage = this.navigator.getActivePage()
         if (!sourcePage) {
-            this.bot.logger.warn(this.bot.isMobile, 'VISUAL-SEARCH-BROWSER', 'Browser page unavailable for activation')
+            this.bot.logger.warn(this.bot.isMobile, 'VISUAL-SEARCH-BROWSER', '激活所需的浏览器页面不可用')
             return activationOutcome('unconfirmed', 'activation-page-unavailable', target.offerId)
         }
 
@@ -34,7 +34,7 @@ export class VisualSearchActivation extends BaseActivity {
                 this.bot.logger.warn(
                     this.bot.isMobile,
                     'VISUAL-SEARCH-BROWSER',
-                    `No rendered visual-search activation control matched | offerId=${target.offerId}`
+                    `没有匹配到渲染的视觉搜索激活控件 | offerId=${target.offerId}`
                 )
                 return activationOutcome('unconfirmed', 'activation-control-missing', target.offerId)
             }
@@ -42,7 +42,7 @@ export class VisualSearchActivation extends BaseActivity {
             this.bot.logger.debug(
                 this.bot.isMobile,
                 'VISUAL-SEARCH-BROWSER',
-                `Clicking rendered activation control | offerId=${target.offerId}`
+                `正在点击渲染的激活控件 | offerId=${target.offerId}`
             )
             try {
                 const clicked = await this.navigator.click(page, control)

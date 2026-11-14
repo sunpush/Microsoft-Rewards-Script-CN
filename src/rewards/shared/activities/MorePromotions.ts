@@ -15,7 +15,7 @@ export class MorePromotions extends BaseActivity {
             this.bot.logger.debug(
                 this.bot.isMobile,
                 'MORE-PROMOTIONS',
-                'No eligible pending "More Promotions" items in the current data'
+                '当前数据中没有符合条件的待处理“更多推广”项目'
             )
             return
         }
@@ -23,9 +23,9 @@ export class MorePromotions extends BaseActivity {
         this.bot.logger.info(
             this.bot.isMobile,
             'MORE-PROMOTIONS',
-            `Started solving "More Promotions" items | remaining=${pending.length}`
+            `开始处理“更多推广”项目 | remaining=${pending.length}`
         )
         await new PromotionRunner(this.bot).run(pending, 'more-promotions')
-        this.bot.logger.debug(this.bot.isMobile, 'MORE-PROMOTIONS', 'Finished processing "More Promotions" items')
+        this.bot.logger.debug(this.bot.isMobile, 'MORE-PROMOTIONS', '“更多推广”项目处理完成')
     }
 }

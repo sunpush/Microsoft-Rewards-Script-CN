@@ -63,7 +63,7 @@ export class ServerActions {
                 this.bot.logger.warn(
                     this.bot.isMobile,
                     'BOOTSTRAP',
-                    'No offers parsed - page may not have rendered the RSC payload (check login/redirect)'
+                    '未解析到 offer - 页面可能未渲染 RSC 数据载荷（请检查登录状态或重定向）'
                 )
             }
 
@@ -71,26 +71,26 @@ export class ServerActions {
                 this.bot.logger.warn(
                     this.bot.isMobile,
                     'BOOTSTRAP',
-                    'No action ids discovered - server-action calls will fail (bundle may have stripped names)'
+                    '未发现 action ID - 服务器 action 调用将失败（bundle 可能已移除名称）'
                 )
             }
 
             this.bot.logger.debug(
                 this.bot.isMobile,
                 'BOOTSTRAP',
-                `Context ready | rewardsMode=${this.bot.config.rewardsMode} | actions=${Object.keys(this.bot.nextActions).length} | reportable=${this.bot.reactSnapshot.reportable.length} | available=${this.bot.reactSnapshot.account.availablePoints}`
+                `上下文已准备 | rewardsMode=${this.bot.config.rewardsMode} | actions=${Object.keys(this.bot.nextActions).length} | reportable=${this.bot.reactSnapshot.reportable.length} | available=${this.bot.reactSnapshot.account.availablePoints}`
             )
 
             this.bot.logger.debug(
                 this.bot.isMobile,
                 'BUILD',
-                `Rewards build | id=${this.rewardsDeploymentIds[this.platformKey] || 'unknown'}`
+                `Rewards 构建版本 | id=${this.rewardsDeploymentIds[this.platformKey] || 'unknown'}`
             )
         } catch (error) {
             this.bot.logger.error(
                 this.bot.isMobile,
                 'BOOTSTRAP',
-                `Failed acquiring context | error=${error instanceof Error ? error.message : String(error)}`
+                `获取上下文失败 | error=${error instanceof Error ? error.message : String(error)}`
             )
             throw error
         }
@@ -104,14 +104,14 @@ export class ServerActions {
             if (!welcomeButton) return
 
             await ghostClick(page, page.locator('section[role="dialog"] button[slot="close"]'), 5000, this.bot.signal)
-            this.bot.logger.debug(this.bot.isMobile, 'BOOTSTRAP', 'Dismissed welcome dialog')
+            this.bot.logger.debug(this.bot.isMobile, 'BOOTSTRAP', '已关闭欢迎对话框')
 
             await page.waitForSelector('section#dailyset', { timeout: 15000 }).catch(() => undefined)
         } catch (error) {
             this.bot.logger.warn(
                 this.bot.isMobile,
                 'BOOTSTRAP',
-                `Failed to dismiss welcome dialog: ${error instanceof Error ? error.message : String(error)}`
+                `关闭欢迎对话框失败: ${error instanceof Error ? error.message : String(error)}`
             )
         }
     }
@@ -124,13 +124,13 @@ export class ServerActions {
             this.bot.logger.warn(
                 this.bot.isMobile,
                 'BOOTSTRAP',
-                `Failed to fetch ${route} HTML | status=${res.status} - snapshot and action discovery may be incomplete`
+                `获取 ${route} HTML 失败 | status=${res.status} - 快照和 action 发现可能不完整`
             )
         } catch (error) {
             this.bot.logger.warn(
                 this.bot.isMobile,
                 'BOOTSTRAP',
-                `Failed to fetch ${route} HTML | error=${error instanceof Error ? error.message : String(error)} - snapshot and action discovery may be incomplete`
+                `获取 ${route} HTML 失败 | error=${error instanceof Error ? error.message : String(error)} - 快照和 action 发现可能不完整`
             )
         }
 
@@ -208,7 +208,7 @@ export class ServerActions {
         this.bot.logger.debug(
             this.bot.isMobile,
             'SERVER-ACTION',
-            `Submitting action | name=${name} | route=/${route} | build=${this.rewardsDeploymentIds[this.platformKey] || 'unknown'}`
+            `正在提交 action | name=${name} | route=/${route} | build=${this.rewardsDeploymentIds[this.platformKey] || 'unknown'}`
         )
         return this.postServerAction(
             actions[name]!,
@@ -298,7 +298,7 @@ export class ServerActions {
         this.bot.logger.debug(
             this.bot.isMobile,
             'URL-REWARD-RSC',
-            `Server action delivered via ${response.via} | url=${targetUrl} | status=${response.status}`
+            `服务器 action 已通过 ${response.via} 发送 | url=${targetUrl} | status=${response.status}`
         )
 
         return {
