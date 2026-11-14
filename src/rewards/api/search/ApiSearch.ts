@@ -19,7 +19,7 @@ export class ApiSearch extends BaseActivity {
     async search(isMobile: boolean): Promise<number | null> {
         const startBalance = Number(this.bot.userData.currentPoints ?? 0)
 
-        this.bot.logger.info(isMobile, 'SEARCH-BING', `Starting Bing searches | currentBalance=${startBalance}`)
+        this.bot.logger.info(isMobile, 'SEARCH-BING', `开始 Bing 搜索 | currentBalance=${startBalance}`)
         await reportPointsToServer(this.bot.userData.userName,startBalance)
         try {
             const missing = await this.searchProgress.getMissing(isMobile)
@@ -27,12 +27,12 @@ export class ApiSearch extends BaseActivity {
             this.bot.logger.info(
                 isMobile,
                 'SEARCH-BING',
-                `Search points remaining | edge=${missing.edgePoints} | desktop=${missing.desktopPoints} | mobile=${missing.mobilePoints}`
+                `剩余搜索点数 | edge=${missing.edgePoints} | desktop=${missing.desktopPoints} | mobile=${missing.mobilePoints}`
             )
             const zeroPointRun = missing.totalPoints <= 0 && this.bot.config.searchSettings.runOnZeroPoints
             if (missing.totalPoints <= 0 && !zeroPointRun) {
                 this.bot.recordActivity('search', activityResult('skipped', 'already-complete'))
-                this.bot.logger.debug(isMobile, 'SEARCH-BING', 'No search points to earn, skipping')
+                this.bot.logger.debug(isMobile, 'SEARCH-BING', '没有可赚取的搜索点数，跳过')
                 return 0
             }
             let remainingPoints = missing.totalPoints
@@ -42,7 +42,7 @@ export class ApiSearch extends BaseActivity {
             const topicCount = await queryQueue.prepare()
             if (!topicCount) {
                 this.bot.recordActivity('search', activityResult('unconfirmed', 'query-source-unavailable'))
-                this.bot.logger.warn(isMobile, 'SEARCH-BING', 'No main search topics available, skipping')
+                this.bot.logger.warn(isMobile, 'SEARCH-BING', '没有可用的主搜索主题，跳过')
                 return 0
             }
 
@@ -55,7 +55,7 @@ export class ApiSearch extends BaseActivity {
                 this.bot.signal.throwIfAborted()
                 const selected = await queryQueue.next()
                 if (!selected) {
-                    this.bot.logger.warn(isMobile, 'SEARCH-BING', 'Query queue exhausted, stopping')
+                    this.bot.logger.warn(isMobile, 'SEARCH-BING', '查询队列已耗尽，停止')
                     break
                 }
                 const query = selected.text
@@ -63,7 +63,7 @@ export class ApiSearch extends BaseActivity {
                 this.bot.logger.info(
                     isMobile,
                     'SEARCH-BING',
-                    `Searching | search=${performed + 1} | ${formatSearchQuery(selected)} | remaining=${remainingPoints}`
+                    `正在搜索 | search=${performed + 1} | ${formatSearchQuery(selected)} | remaining=${remainingPoints}`
                 )
 
                 const res = await this.searchApi.report(query)
@@ -71,7 +71,7 @@ export class ApiSearch extends BaseActivity {
                 searchesSinceMeasurement++
 
                 if (!res.ig) {
-                    this.bot.logger.warn(isMobile, 'SEARCH-BING', `No IG for query="${query}" - skipping`)
+                    this.bot.logger.warn(isMobile, 'SEARCH-BING', `查询="${query}" 无 IG - 跳过`)
                     continue
                 }
 
@@ -114,7 +114,7 @@ export class ApiSearch extends BaseActivity {
                         this.bot.logger.debug(
                             isMobile,
                             'SEARCH-BING',
-                            `Could not refresh the ${isMobile ? 'mobile' : 'desktop'} search quota | ${
+                            `无法刷新 ${isMobile ? 'mobile' : 'desktop'} 搜索配额 | ${
                                 error instanceof Error ? error.message : String(error)
                             }`
                         )
@@ -130,7 +130,7 @@ export class ApiSearch extends BaseActivity {
                     this.bot.logger.success(
                         isMobile,
                         'SEARCH-BING',
-                        `${measuredSearches > 1 ? 'batch ' : ''}pointsGained=${gained ?? 'unknown'}` +
+                        `${measuredSearches > 1 ? '批量 ' : ''}pointsGained=${gained ?? 'unknown'}` +
                             ` | currentBalance=${this.bot.userData.currentPoints} | query="${query}"` +
                             ` | searchesMeasured=${measuredSearches} | searchCounterIncrease=${responseProgress}` +
                             ` | remaining=${remainingPoints} | searchPts=${cap}`
@@ -140,7 +140,7 @@ export class ApiSearch extends BaseActivity {
                     this.bot.logger.debug(
                         isMobile,
                         'SEARCH-BING',
-                        `No confirmed search progress ${stagnant}/${STAGNANT_LIMIT} | query="${query}"` +
+                        `没有确认的搜索进度 ${stagnant}/${STAGNANT_LIMIT} | query="${query}"` +
                             ` | remaining=${remainingPoints} | searchPts=${cap}`
                     )
                 }
@@ -149,7 +149,7 @@ export class ApiSearch extends BaseActivity {
                     this.bot.logger.debug(
                         isMobile,
                         'SEARCH-BING',
-                        `${isMobile ? 'Mobile' : 'Desktop'} search quota complete` +
+                        `${isMobile ? 'Mobile' : 'Desktop'} 搜索配额已完成` +
                             ` | remaining=${remainingPoints} | responseSearchPts=${cap}`
                     )
                     break
@@ -159,7 +159,7 @@ export class ApiSearch extends BaseActivity {
                     this.bot.logger.warn(
                         isMobile,
                         'SEARCH-BING',
-                        `No confirmed progress for ${STAGNANT_LIMIT} searches in a row, stopping`
+                        `连续 ${STAGNANT_LIMIT} 次搜索没有确认进度，停止`
                     )
                     break
                 }
@@ -187,7 +187,7 @@ export class ApiSearch extends BaseActivity {
             this.bot.logger[completed || (totalGained ?? 0) > 0 ? 'success' : 'info'](
                 isMobile,
                 'SEARCH-BING',
-                `${completed ? 'Completed' : 'Stopped'} Bing searches | pointsGained=${totalGained ?? 'unknown'} | currentBalance=${this.bot.userData.currentPoints} | previousBalance=${startBalance} | searches=${performed}`
+                `${completed ? '已完成' : '已停止'} Bing 搜索 | pointsGained=${totalGained ?? 'unknown'} | currentBalance=${this.bot.userData.currentPoints} | previousBalance=${startBalance} | searches=${performed}`
             )
             return totalGained
         } catch (error) {
@@ -196,7 +196,7 @@ export class ApiSearch extends BaseActivity {
             this.bot.logger.error(
                 isMobile,
                 'SEARCH-BING',
-                `Error in doSearch | ${error instanceof Error ? error.message : String(error)}`
+                `doSearch 出错 | ${error instanceof Error ? error.message : String(error)}`
             )
             return null
         }
@@ -216,7 +216,7 @@ export class ApiSearch extends BaseActivity {
             const queryQueue = new SearchQueryQueue(this.bot)
             const topicCount = await queryQueue.prepare()
             if (!topicCount) {
-                this.bot.logger.warn(isMobile, tracker.context, 'No main search topics available, skipping')
+                this.bot.logger.warn(isMobile, tracker.context, '没有可用的主搜索主题，跳过')
                 return 0
             }
 
@@ -224,7 +224,7 @@ export class ApiSearch extends BaseActivity {
                 this.bot.signal.throwIfAborted()
                 const selected = await queryQueue.next()
                 if (!selected) {
-                    this.bot.logger.warn(isMobile, tracker.context, 'Query queue exhausted, stopping')
+                    this.bot.logger.warn(isMobile, tracker.context, '查询队列已耗尽，停止')
                     break
                 }
                 const query = selected.text
@@ -232,14 +232,14 @@ export class ApiSearch extends BaseActivity {
                 this.bot.logger.info(
                     isMobile,
                     tracker.context,
-                    `Searching | search=${performed + 1} | ${formatSearchQuery(selected)} | ${tracker.progress()}`
+                    `正在搜索 | search=${performed + 1} | ${formatSearchQuery(selected)} | ${tracker.progress()}`
                 )
 
                 const res = await this.searchApi.report(query)
                 performed++
 
                 if (!res.ig) {
-                    this.bot.logger.warn(isMobile, tracker.context, `No IG for query="${query}" - skipping`)
+                    this.bot.logger.warn(isMobile, tracker.context, `查询="${query}" 无 IG - 跳过`)
                     continue
                 }
 
@@ -256,7 +256,7 @@ export class ApiSearch extends BaseActivity {
                     this.bot.logger.info(
                         isMobile,
                         tracker.context,
-                        `pointsGained=${gained ?? 'unknown'} | no confirmed progress ${stagnant}/${tracker.stagnantLimit} | query="${query}" | ${tracker.progress()}`
+                        `pointsGained=${gained ?? 'unknown'} | 没有确认进度 ${stagnant}/${tracker.stagnantLimit} | query="${query}" | ${tracker.progress()}`
                     )
                 }
 
@@ -266,7 +266,7 @@ export class ApiSearch extends BaseActivity {
             this.bot.logger.error(
                 isMobile,
                 tracker.context,
-                `Bonus session error | ${error instanceof Error ? error.message : String(error)}`
+                `奖励搜索会话出错 | ${error instanceof Error ? error.message : String(error)}`
             )
         }
 
@@ -287,7 +287,7 @@ export class ApiSearch extends BaseActivity {
         this.bot.logger[done || (totalGained ?? 0) > 0 ? 'success' : 'info'](
             isMobile,
             tracker.context,
-            `Bonus farming ${done ? 'complete' : 'stopped'} (${reason}) | pointsGained=${totalGained ?? 'unknown'} | currentBalance=${this.bot.userData.currentPoints} | ${tracker.progress()} | searches=${performed}`
+            `奖励搜索 ${done ? '已完成' : '已停止'} (${reason}) | pointsGained=${totalGained ?? 'unknown'} | currentBalance=${this.bot.userData.currentPoints} | ${tracker.progress()} | searches=${performed}`
         )
         this.bot.recordActivity(
             'bonus-search',
