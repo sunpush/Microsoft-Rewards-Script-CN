@@ -2,7 +2,7 @@ services:
     ms_rewards:
         build:
             context: .
-        image: ms_rewards:5.0.0
+        image: ms_rewards:5.0.1
         container_name: ms_rewards_app_${NO}
         restart: unless-stopped
         stop_grace_period: 60s
@@ -61,6 +61,7 @@ services:
             CONFIG_SEARCH_SCROLL_RANDOM: 'true'
             CONFIG_SEARCH_CLICK_RANDOM: 'true'
             CONFIG_SEARCH_VISIT_TIME: '30sec'
+            CONFIG_PROXY_QUERY_ENGINE: 'false'
 
         # ── Control API port mapping ──────────────────────────────
         # Uncomment when API_MODE=true

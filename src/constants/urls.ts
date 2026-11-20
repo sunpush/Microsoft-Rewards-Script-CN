@@ -71,4 +71,13 @@ export const URLs = {
     }
 } as const
 
+export function isBingHostname(hostname: string): boolean {
+    const normalized = hostname.trim().toLowerCase().replace(/\.$/, '')
+    return normalized === 'bing.com' || normalized.endsWith('.bing.com')
+}
+
+export function isBingUrl(url: URL): boolean {
+    return url.protocol === 'https:' && isBingHostname(url.hostname)
+}
+
 export const REWARDS_BASE_URL = URLs.rewards.origin

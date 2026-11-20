@@ -2,6 +2,7 @@ import type { Route } from 'patchright'
 import { type Page } from 'patchright'
 import { browserTimeout } from './BrowserTiming'
 import { ghostClick } from './GhostClick'
+import { isBingUrl } from '../constants/urls'
 
 import type { BotContext } from '../core/BotContext'
 
@@ -20,9 +21,7 @@ export default class BrowserUtils {
             await page.bringToFront()
             if (!(await this.dismissRewardsWelcome(page))) return
             await this.dismissMsnConsent(page)
-            const host = new URL(page.url()).hostname
-            const waitForConsent =
-                /^(?:rewards\.)?bing\.com$|^www\.bing\.com$/i.test(host) && !this.consentChecked.has(page)
+            const waitForConsent = isBingUrl(new URL(page.url())) && !this.consentChecked.has(page)
             if (waitForConsent) {
                 this.consentChecked.add(page)
                 page.once('domcontentloaded', () => this.consentChecked.delete(page))
