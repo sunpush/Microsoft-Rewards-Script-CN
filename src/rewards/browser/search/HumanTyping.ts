@@ -1,6 +1,6 @@
 import { ghostClick } from '../../../browser/GhostClick'
 import type { Locator, Page } from 'patchright'
-import { URLs } from '../../../constants/urls'
+import { isBingUrl } from '../../../constants/urls'
 
 const KEY_DELAY_MS = 70
 const PRE_FOCUS_PAUSE_MS = 600
@@ -38,16 +38,30 @@ export async function submitSearch(
     if ((await searchBox.inputValue({ timeout: remaining() })) !== query) {
         await searchBox.fill(query, { timeout: remaining() })
     }
-    await Promise.all([
-        page.waitForURL(
-            url =>
-                url.origin === URLs.bing.origin &&
-                url.pathname === '/search' &&
-                normalize(url.searchParams.get('q') ?? '') === normalize(query),
-            { waitUntil: 'commit', timeout: remaining() }
-        ),
-        searchBox.press('Enter', { timeout: remaining() })
-    ])
+    try {
+        await Promise.all([
+            page.waitForURL(
+                url =>
+                    isBingUrl(url) &&
+                    url.pathname === '/search' &&
+                    normalize(url.searchParams.get('q') ?? '') === normalize(query),
+                { waitUntil: 'commit', timeout: remaining() }
+            ),
+            searchBox.press('Enter', { timeout: remaining() })
+        ])
+    } catch (error) {
+        let location = page.url()
+        try {
+            const url = new URL(location)
+            url.search = ''
+            url.hash = ''
+            location = url.toString()
+        } catch {
+            // Keep the raw page URL when Chromium reports a non-standard location.
+        }
+        const message = error instanceof Error ? error.message : String(error)
+        throw new Error(`${message} | landedAt=${location}`, { cause: error })
+    }
 
     await page.locator('#b_results').waitFor({ state: 'visible', timeout: remaining() })
     remaining()
